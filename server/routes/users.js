@@ -97,7 +97,8 @@ router.post('/register', function (req, res, next) {
           } else {
               console.log(password)
               let hashedPassword = bcrypt.hashSync(password, 10);
-              return db.one('INSERT INTO users(username, password, email, address, city, state, zip, profile_picture) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id', [username, hashedPassword, email, address, city, state, zip, picture])   
+              return db.one('INSERT INTO users(username, password, email, address, city, state, zip, profile_picture) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING user_id', 
+              [username, hashedPassword, email, address, city, state, zip, picture])   
           }    
       })
       .then(() => {
