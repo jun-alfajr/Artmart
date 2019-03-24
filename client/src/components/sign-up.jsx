@@ -24,7 +24,7 @@ class SignUp extends Component{
     e.preventDefault()
     const form = e.currentTarget;
     console.log("working")
-    let { username, password,email, address, city, state, zipcode, profilePic,checkbox,validated} = this.state
+    let { username, password,email, address, city, state, zipcode, profilePic,checkbox,validated,confirmPassword} = this.state
 
     if (form.checkValidity() === false) {
       e.preventDefault();
@@ -43,6 +43,9 @@ class SignUp extends Component{
     }
     else if(zipcode.length != 5){
       this.setState({errMsg:'please enter correct zipcode'})
+      return
+    }else if (password != confirmPassword){
+      this.setState({errMsg:'Passwords do not match'})
       return
     }else{
       console.log("helloe")

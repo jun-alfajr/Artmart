@@ -12,7 +12,7 @@ router.get('/', function(req, res, next) {
 
 // LOG IN
 router.post('/login', passport.authenticate('local'), function (req, res, next) {
-  res.json({ username: req.user.username });
+  res.json({ user: req.user.username });
 });
 
 // LOG OUT
@@ -88,17 +88,17 @@ router.post('/register', function (req, res, next) {
       })
   }
 
-  db.any('SELECT * FROM users WHERE username = $1', [username])
+  db.any('SELECT * FROM users WHERE username = $1 OR email = $2', [username,email])
       .then(function (data) {
-          
+          console.log(data);
           if  ( data.length == 1) {
               // user already exists!
               res.status(400).send({error: "USER ALREADY EXISTS"});
           } else {
               console.log(password)
               let hashedPassword = bcrypt.hashSync(password, 10);
-              return db.one('INSERT INTO users(username, password, email, address, city, state, zip, profile_picture) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING user_id', 
-              [username, hashedPassword, email, address, city, state, zip, picture])   
+              return db.one('INSERT INTO users(username, email, password, address, city, state, zip, profile_picture) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING user_id', 
+              [username, email, hashedPassword, address, city, state, zip, picture])   
           }    
       })
       .then(() => {
