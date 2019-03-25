@@ -88,13 +88,14 @@ router.post('/register', function (req, res, next) {
       })
   }
 
-  db.any('SELECT * FROM users WHERE username = $1 OR email = $2', [username,email])
+  db.any('SELECT * FROM users WHERE username = $1', [username])
       .then(function (data) {
+        console.log("data");
           console.log(data);
           if  ( data.length == 1) {
               // user already exists!
               res.status(400).send({error: "USER ALREADY EXISTS"});
-          } else {
+          }     else {
               console.log(password)
               let hashedPassword = bcrypt.hashSync(password, 10);
               return db.one('INSERT INTO users(username, email, password, address, city, state, zip, profile_picture) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING user_id', 

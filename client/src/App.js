@@ -4,6 +4,8 @@ import Slides from './components/slides.jsx';
 import Footer from './components/footer.jsx';
 import Page from './components/page.jsx';
 import {Switch, Route} from 'react-router-dom';
+import Cart from './components/cartTest.jsx';
+import Products from './components/productsTest.jsx';
 
 class App extends Component {
   render() {
@@ -12,7 +14,10 @@ class App extends Component {
       <NavBar/>
       <Switch>
         <Route exact path="/" component={Slides}/>
-        <Route exact path="/:page" component={Page}/>
+        <Route exact path="/page" component={Page}/>
+        <Route exact path="/cart" component={Cart} />
+        <Route exact path="/products" component={Products} />
+        
       </Switch>
       <Footer/>
       </div>
