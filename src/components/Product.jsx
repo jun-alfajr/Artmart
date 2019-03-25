@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react'
 import styled from 'styled-components';
 import {Link} from 'react-router-dom';
@@ -17,14 +16,17 @@ export default class Product extends Component {
             <ProductConsumer>
                 {(value) => (
                     <div 
-                    className="img-container p-5" 
+                    className="img-container" 
                     onClick={() => 
                     value.handleDetail(product_id)
                     }
                 >
                     <Link to="/details">
-                        <img src={img} alt="product" 
-                        className="card-img-top"/>
+                        <img 
+                        src={img} 
+                        alt="product" 
+                        style={{height:300}}
+                        className="card-img-top p-1"/>
                     </Link>
                     <button 
                         className="cart-btn" 
@@ -73,6 +75,7 @@ const ProductWrapper = styled.div`
 .card{
     border-color:transparent;
     transition: all 1s linear;
+    height:340px;
 }
 .card-footer{
     background: transparent;
@@ -91,6 +94,7 @@ const ProductWrapper = styled.div`
 .img-container{
     position:relative;
     overflow:hidden;
+    height:320px;
 }
 .card-img-top{
     transition: all 1s linear;

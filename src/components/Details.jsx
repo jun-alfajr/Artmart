@@ -18,13 +18,13 @@ export default class Details extends Component {
         <div className="row">
         </div>
           <div className="row">
-            <div className="col-10 mx-auto col-md-6 my-3 text-capitalize">
-              <img src={img} className="img-fluid" alt="product"/>
+            <div className="col-10 mx-auto col-md-6 my-3">
+              <img src={img} style={{height:400,width:400}} className="img-fluid" alt="product"/>
             </div>
-            <div className="col-10 mx-auto col-md-6 my-3 text-capitalize">
-              <h4 className="text-blue"><strong>price: <span>$</span>{price}</strong></h4>
-              <h4 className="text-title text-muted mt-3 mb-2">
-                artist: <span style={{textTransform:"title-case"}}>{artist}</span>
+            <div className="col-10 mx-auto col-md-6 my-3">
+              <h4><strong>Price: <span>$</span>{price}</strong></h4>
+              <h4 className="mt-3 mb-2">
+                Artist: <span >{artist}</span>
               </h4>
               <p className="text-muted lead">
                 {info}

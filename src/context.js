@@ -21,6 +21,21 @@ class ProductProvider extends Component {
         this.setProducts();
     }
 
+    shuffle(array) {
+        var currentIndex = array.length, temporaryValue, randomIndex;
+      
+        while (0 !== currentIndex) {
+      
+          randomIndex = Math.floor(Math.random() * currentIndex);
+          currentIndex -= 1;
+          temporaryValue = array[currentIndex];
+          array[currentIndex] = array[randomIndex];
+          array[randomIndex] = temporaryValue;
+        }
+      
+        return array;
+      }
+
     setProducts = () => {
         let tempProducts = [];
         storeProducts.forEach(item => {
@@ -28,7 +43,7 @@ class ProductProvider extends Component {
             tempProducts = [...tempProducts,singleItem]
         });
         this.setState(() => {
-            return {products:tempProducts}
+            return {products:this.shuffle(tempProducts)}
         })
         };
 

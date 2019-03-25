@@ -22,16 +22,18 @@ class App extends Component {
         <NavBar/>
           <Switch>
             <Route exact path="/" component={Slides}/>
-            <Route exact path="/log-in" component={LogIn}/>
-            <Route exact path="/sign-up" component={SignUp}/>
-            <Route exact path="/products/:productType" component={ProductList}/>
-            <Route exact path="/artisans/:artisan" component={Artisan}/>
-            <Route exact path="/details" component={Details}/>
-            <Route exact path="/my-cart" component={Cart}/>
-            <Route exact path="/about-us" component={About}/>
-            <Route exact path="/terms" component={Terms}/>
-            <Route exact path="/shipping-rates" component={Shipping}/>
+            <Route path="/log-in" component={LogIn}/>
+            <Route path="/sign-up" component={SignUp}/>
+            <Route path="/products/:productType" component={ProductList}/>
+            <Route path="/artisans/:artisan" component={Artisan}/>
+            <Route path="/details" component={Details}/>
+            <Route path="/my-cart" component={Cart}/>
+            <Route path="/about-us" component={About}/>
+            <Route path="/terms" component={Terms}/>
+            <Route path="/shipping-rates" component={Shipping}/>
+            <Route component={Default}/>
           </Switch>
+          <Modal />
         <Footer/>
       </React.Fragment>
     );
