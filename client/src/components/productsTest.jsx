@@ -9,19 +9,18 @@ import axios from 'axios';
 
 class Products extends Component{
   state={
-    productAmount: '',
-    total:1,
-    amount:2
+    incart:true,
+    product_id:"1"
   }
 
+
+
   addCart(){
-   
-    console.log("working")
-    let { total,amount} = this.state
+    let {incart,product_id} = this.state
 
       axios.post('/products/addtocart', {
-        total,
-        amount
+       incart,
+       product_id
         })
       .then((response) => {console.log(response)})
   
@@ -31,7 +30,6 @@ class Products extends Component{
   
 
     render(){
-      const { validated } = this.state;
         return(
                 <div>
                  <Form.Group  as={Col} >

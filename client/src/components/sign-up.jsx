@@ -135,7 +135,7 @@ class SignUp extends Component{
                   <Form.Control.Feedback type="invalid">
                       Please enter a zipcode.
                   </Form.Control.Feedback>
-                    <option>Choose...</option>
+                    {/* <option>Choose...</option> */}
                     <option>GA</option>
                   </Form.Control>
                 </Form.Group>

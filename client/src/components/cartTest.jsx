@@ -6,22 +6,16 @@ import {Switch, Route, Redirect, withRouter} from 'react-router-dom';
 
 class Cart extends Component{
   state={
-    username: '',
-    email:'',
-    password: '',
-    confirmPassword: '',
-    address:'',
-    city:'',
-    state:'',
-    zipcode: '',
-    profilePic:'',
-    checkbox:false,
-    errMsg:'',
-    validated:false
+   
     
   }
 
-  
+  componentDidMount(e){
+    axios.get('/cart/incart')
+    .then( resp => 
+       console.log(resp.data))
+        .catch(err => console.log(err))
+  }
   
 
     render(){
