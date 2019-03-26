@@ -15,8 +15,8 @@ class Footer extends Component {
               <hr></hr>
             {currentCol.map((item,j)=>
             <p key={j}>
-            {item.isLink ? <NavLink className="footer-link" to={`/${item.name.replace("/","-")}`} style={{color: 'black'}}>
-            {item.name[0].toUpperCase() + item.name.slice(1).replace("-"," ")}
+            {item.isLink ? <NavLink className="footer-link" to={item.link} style={{color: 'black'}}>
+            <span style={{textTransform:"capitalize"}}>{item.name.replace("-"," ")}</span>
             </NavLink> : item.name}
             </p>)}
             </MDBCol>)}

@@ -6,7 +6,8 @@ import {slides} from '../data.js';
    render(){
      let imgStyle= {marginTop : '-30%', maxHeight : '400'}
     return (
-      <MDBCarousel  activeItem={1} length={2} showControls={false} showIndicators={true} className="z-depth-1">
+      <MDBCarousel  activeItem={1} length={2} showControls={false} showIndicators={true}>
+      <div className="d-none d-sm-block">
         <MDBCarouselInner >
         {slides.map((slide,i) => 
         <MDBCarouselItem itemId={i+1} key={i}>
@@ -19,6 +20,18 @@ import {slides} from '../data.js';
             </MDBCarouselCaption>
           </MDBCarouselItem>)}
         </MDBCarouselInner>
+        </div>
+        <div className="d-block d-sm-none">
+        <MDBCarouselInner >
+        {slides.map((slide,i) => 
+        <MDBCarouselItem itemId={i+1} key={i}>
+            <MDBView>
+              <img style={{height:360}} className="d-block w-100" src={slide.img} />
+              <MDBMask overlay="black-light" />
+            </MDBView>
+          </MDBCarouselItem>)}
+        </MDBCarouselInner>
+        </div>
       </MDBCarousel>
     );
   }
