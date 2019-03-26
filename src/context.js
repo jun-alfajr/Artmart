@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import {storeProducts, detailProduct} from './data';
 
 const ProductContext = React.createContext();
-//provider
-//consumer
 
 class ProductProvider extends Component {
     state={
@@ -91,6 +89,7 @@ class ProductProvider extends Component {
     }
 
     increment = (id) => {
+        console.log()
         let tempCart = [...this.state.cart];
         const selectedProduct = tempCart.find(item => item.product_id === id)
         const index = tempCart.indexOf(selectedProduct);

@@ -7,13 +7,13 @@ class NavBar extends Component {
 
   render() {
     return (
-    <Navbar bg="dark" variant="dark">
+    <Navbar collapseOnSelect expand="md" bg="dark" variant="dark">
     <Navbar.Brand className="mr-5" ><Link to="/" style={{color:'white',textDecoration: 'none'}}>Art Mart</Link></Navbar.Brand>
     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
-        <Nav className="mr-auto">
+        <Nav className="ml-auto">
           {navOpts.map((section,i) =>
-            <Nav key={i}>
+            <Nav key={i} className="mr-5">
               <NavDropdown title={navHeadings[i]} id="collasible-nav-dropdown">
                 {section.map((item,j) => 
                 <NavDropdown.Item key={j}>

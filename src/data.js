@@ -519,6 +519,7 @@ export const storeProducts = [
         product_type: 'paintings',
         title : 'New Born',
         img : '/img/paintings6.jpg',
+        price : 780,
         artist : 'Vince Van Dro',
         info : 'Siberian Tiger cuddles her cub as the sun warms thier fur.',
         inCart : false,
