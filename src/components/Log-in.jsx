@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
-import {Form , Button, Col,Container, Row} from 'react-bootstrap'
+import {Form , Button, Col,Container, Row, Alert} from 'react-bootstrap'
 import {logInData} from '../data.js';
 import axios from 'axios';
 import Hero from './Hero';
 import {ProductConsumer} from '../context';
+
+
 
 class LogIn extends Component{
     state={
@@ -42,7 +44,7 @@ class LogIn extends Component{
       this.setState({password: input})
     }
     render(){
-      
+      let {errMsg} = this.state
         const { validated } = this.state;
         return(
         <React.Fragment>

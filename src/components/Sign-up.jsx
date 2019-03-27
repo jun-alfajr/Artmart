@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import {Form , Button, Col, Row, Container} from 'react-bootstrap'
+import {Form , Button, Col, Row, Container, Alert} from 'react-bootstrap'
 import {signUpData} from '../data.js';
 import axios from 'axios';
 import Hero from './Hero';
 import {ProductConsumer} from '../context';
+
 
 class SignUp extends Component{
   state={
