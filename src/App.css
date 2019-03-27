@@ -1,4 +1,9 @@
 
+git rm client/public/img/painting2.jpg client/public/img/painting3.jpg client/public/img/painting4.jpg client/public/img/painting5.jpg client/public/img/painting6.jpg
+
+
+
+
 :root{
   --mainBlue:##2a2a72;
   --lightBlue:#009ffd;

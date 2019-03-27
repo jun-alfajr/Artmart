@@ -57,33 +57,33 @@ export const slides = [
 
 export const signUpData = [
     [{
-        label:'Username',
+        label:'username',
         type: 'text',
     },
     {
-        label:'Email',
+        label:'email',
         type: 'email',
     }],
     [{
-        label:'Password',
+        label:'password',
         type: 'password',
     },{
-        label: 'Confirm Password',
+        label: 'confirm Password',
         type: 'password'
     }],
     [{
-        label:'Address',
+        label:'address',
         type: 'text',
     }],
     [{
-        label:'City',
+        label:'city',
         type: 'text',
     },{
-        label: 'State',
+        label: 'state',
         type: 'select'
     },
     {
-        label:'Zip',
+        label:'zipcode',
         type: 'number',
     }],
     [{

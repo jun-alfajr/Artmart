@@ -14,8 +14,31 @@ import Artisan from './components/Artisan.jsx';
 import About from './components/About';
 import Terms from './components/Terms';
 import Shipping from './components/Shipping.jsx';
-
+import LogOut from './components/Log-out';
+import axios from 'axios'
 class App extends Component {
+  // state = {
+  //   isLoggedIn : false
+  // }
+
+//   componentDidMount(){
+//   axios.get('/users/status')
+//   .then(resp => this.setState({isLoggedIn : resp.data.isLoggedIn}))
+//   .catch(err => console.log(err))
+// }
+
+// logout(){
+//   axios.post('/users/logout')
+//   .then(
+//     this.setState({isLoggedIn : false},
+//     this.props.history.push('/')))
+//   .catch(err => console.log(err))
+// }
+
+// signIn(){
+//   this.setState({isLoggedIn:true},
+//   this.props.history.push("/products/all"))
+// }
   render() {
     return (
       <React.Fragment>
@@ -31,6 +54,7 @@ class App extends Component {
             <Route path="/about-us" component={About}/>
             <Route path="/terms" component={Terms}/>
             <Route path="/shipping-rates" component={Shipping}/>
+            <Route path="/log-out" component={LogOut}/>
             <Route component={Default}/>
           </Switch>
         <Footer/>
