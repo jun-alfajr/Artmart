@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {Jumbotron, Container} from 'react-bootstrap';
-import SignUp from './sign-up.jsx';
-import LogIn from './log-in.jsx';
+import SignUp from './Sign-up.jsx';
+import LogIn from './Log-in.jsx';
+import LogOut from './Log-out.jsx';
 
 
 class Page extends Component{
@@ -15,6 +16,9 @@ class Page extends Component{
                 break;
             case "log-in":
                 page = <LogIn/>
+                break;
+            case "log-out":
+                page = <LogOut/>
                 break;
             default:
                 page = this.props.params.page

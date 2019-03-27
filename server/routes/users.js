@@ -4,6 +4,16 @@ var db = require('../db');
 var bcrypt = require('bcryptjs');
 var passport = require('../passport.js');
 
+///isAuthenticated is used to ask if user is logged in or not
+function isAuthenticated(req,res,next){
+  if(req.isAuthenticated(req)){
+      console.log(req);
+      next();
+  }else{
+      res.redirect("/");
+  }
+}
+
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
@@ -12,9 +22,8 @@ router.get('/', function(req, res, next) {
 
 // LOG IN
 router.post('/login', passport.authenticate('local'), function (req, res, next) {
-  res.json({ user: req.user.username });
+  res.json({ username: req.user.username });
 });
-
 // LOG OUT
 router.post('/logout', function (req, res, next) {
   req.logout();

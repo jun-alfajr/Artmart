@@ -9,7 +9,7 @@ passport.use(new LocalStrategy(function (username, password, done) {
             if (!user) {
                 return done(null, false);
             }
-            const isCorrectPassword = bcrypt.compareSync(password, user.password_hash)
+            const isCorrectPassword = bcrypt.compareSync(password, user.password)
             if (!isCorrectPassword) {
                 return done(null, false);
             }

@@ -1,22 +1,31 @@
 import React, { Component } from 'react';
 import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
-import {NavLink} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {navOpts , navHeadings} from '../data.js';
 
 class NavBar extends Component {
+
   render() {
     return (
-    <Navbar bg="dark" variant="dark">
-    <Navbar.Brand className="mr-5" ><NavLink to="/" style={{color:'white',textDecoration: 'none'}}>Art Mart</NavLink></Navbar.Brand>
+    <Navbar collapseOnSelect expand="md" bg="dark" variant="dark">
+    <Navbar.Brand className="mr-5" ><Link to="/" style={{color:'white',textDecoration: 'none'}}>Art Mart</Link></Navbar.Brand>
     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
-        <Nav className="mr-auto">
+        <Nav className="ml-auto">
           {navOpts.map((section,i) =>
-            <Nav.Link key={i}>
+            <Nav key={i} className="mr-5">
               <NavDropdown title={navHeadings[i]} id="collasible-nav-dropdown">
-                {section.map((item,j) => <div key={j}><NavLink className="m-3" to={`/${item.name.replace("/","-")}`} style={{color:'black'}}>{item.name.replace("-"," ")}</NavLink><br></br></div>)}
+                {section.map((item,j) => 
+                <NavDropdown.Item key={j}>
+                  <Link className="m-3" 
+                    key={j}
+                    to={`${item.link}`} 
+                    style={{color:'black',textTransform: "capitalize"}}>
+                    {item.name.replace("-"," ").replace("-"," ")}
+                  </Link>
+                </NavDropdown.Item>)}
               </NavDropdown>
-            </Nav.Link>
+            </Nav>
             )}
         </Nav>
       </Navbar.Collapse>
