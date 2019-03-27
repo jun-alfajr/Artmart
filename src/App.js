@@ -33,8 +33,8 @@ class App extends Component {
             <Route path="/shipping-rates" component={Shipping}/>
             <Route component={Default}/>
           </Switch>
-          <Modal />
         <Footer/>
+        <Modal />
       </React.Fragment>
     );
   }
