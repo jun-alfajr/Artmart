@@ -57,8 +57,8 @@ class App extends Component {
             <Route path="/log-out" component={LogOut}/>
             <Route component={Default}/>
           </Switch>
-          <Modal />
         <Footer/>
+        <Modal />
       </React.Fragment>
     );
   }

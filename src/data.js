@@ -87,10 +87,6 @@ export const signUpData = [
         type: 'number',
     }],
     [{
-        label:'profilePic',
-        type: 'file',
-    }],
-    [{
         label: 'I have read and agree to follow the terms',
         type: 'checkbox',
     }]
@@ -146,10 +142,6 @@ export const columns = [
         name: "shipping-rates",
         isLink: true,
         link: "/shipping-rates"
-    },{
-        name: "help",
-        isLink: true,
-        link: "/help"
     }],
     [{
         name: "Atlanta, GA 30305",

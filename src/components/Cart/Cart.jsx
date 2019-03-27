@@ -11,6 +11,9 @@ export default class Cart extends Component {
     return (
   <section>
     <Hero pageName={"My Cart"}/>
+    <div className="container">
+      <div className="row">
+        <div className="col">
     <ProductConsumer>
       {value => {
         const {cart} = value;
@@ -28,6 +31,9 @@ export default class Cart extends Component {
         }
       }}
     </ProductConsumer>
+        </div>
+      </div>
+    </div>
   </section>
     )
   }

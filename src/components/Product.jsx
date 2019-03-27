@@ -11,7 +11,7 @@ export default class Product extends Component {
     const {product_id, title, img, price, inCart } = this.props.product
 
     return (
-        <ProductWrapper className="col-9 mx-auto col-md-6 col-lg-3 my-3">
+        <ProductWrapper style={{maxWidth:400, minWidth: 360}} className="col-xs-9 col-sm-6 col-md-4 col-lg-3 mb-3">
             <div className="card" style={{textTransform:"capitalize"}}>
             <ProductConsumer>
                 {(value) => (
@@ -26,7 +26,7 @@ export default class Product extends Component {
                         src={img} 
                         alt="product" 
                         style={{height:300}}
-                        className="card-img-top p-1"/>
+                        className="card-img-top img-fluid img-responsive p-1"/>
                     </Link>
                     <button 
                         className="cart-btn" 

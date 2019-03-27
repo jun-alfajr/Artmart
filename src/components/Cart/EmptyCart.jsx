@@ -1,13 +1,17 @@
 import React from 'react';
+import {Container, Row, Col} from 'react-bootstrap';
 
 export default function EmptyCart() {
   return (
-    <div className="container m-5" style={{height:200}}>
-      <div className="row">
-        <div className="col-xs-12">
-            <h1>No items in Cart</h1>
-        </div>
-      </div>
-    </div>
+    <Container>
+      <Row>
+        <Col className="text-center">
+            <h3>Cart is empty</h3>
+            <img className="mb-5 img-fluid" 
+            src="/img/empty_cart.png" 
+            style={{maxHeight: 400}}/>
+        </Col>
+      </Row>
+    </Container>
   )
 }
