@@ -21,10 +21,11 @@ class SignUp extends Component{
                     )}
                   </Form.Row>
                   )}
-
+                  <div className="text-center">
                   <Button variant="light" type="submit" style={{border:"1px solid black"}}>
                     Submit
                   </Button>
+                  </div>
                 </Form>
                 </div>
           </React.Fragment>

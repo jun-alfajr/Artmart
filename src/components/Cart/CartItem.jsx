@@ -16,8 +16,7 @@ export default function CartItem({item,value}) {
                 {title}
             </div>
             <div className="col-10 mx-auto col-lg-2">
-                <span className="d-lg-none"> price: </span>
-                <strong>${price}</strong>
+                <span className="d-lg-none"> <strong> price: ${price}</strong> </span>
             </div>
             <div className="col-10 mx-auto col-lg-2 my-lg-0">
                 <div className="d-flex justify-content-center">

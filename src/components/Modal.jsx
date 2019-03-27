@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import {ProductConsumer} from '../context';
 import {ButtonContainer} from './Button';
 import {Link} from 'react-router-dom';
+import {Container, Row, Col} from 'react-bootstrap';
 
 export default class Modal extends Component {
   render() {
@@ -16,9 +17,10 @@ export default class Modal extends Component {
                  }else{
                      return(
                         <ModalContainer>
-                            <div className="container">
-                                <div className="row">
-                                    <div id="modal" className="col-8 mx-auto col-md-6 col-lg-4 text-center p-5">
+                            <Container>
+                                <Row>
+                                    <Col>
+                                    <div id="modal" style={{borderRadius:'4px', maxWidth: 400}} className="col-11 mx-auto col-md-6 col-lg-4 text-center p-5">
                                         <h4 className="mb-5"><strong>Added to Cart</strong></h4>
                                         <img style={{maxHeight:200}} src={img} 
                                         className="img-fluid" 
@@ -33,9 +35,10 @@ export default class Modal extends Component {
                                                 go to cart
                                             </ButtonContainer>
                                         </Link>
-                                    </div>
-                                </div>
-                            </div>
+                                        </div>
+                                    </Col>
+                                </Row>
+                            </Container>
                         </ModalContainer>)
                         }
                     }}
