@@ -36,7 +36,7 @@ router.get('/status', function (req, res, next) {
     console.log(req.user);
       res.send({ user_id: req.user.user_id, isLoggedIn: true})
   } else {
-      res.send({ user_id: null, isLoggedIn: false})
+      res.send({ user_id: false, isLoggedIn: false})
   }
 });
 

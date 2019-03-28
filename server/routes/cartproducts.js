@@ -79,6 +79,24 @@ router.delete('/delete/:title', function (req, res, next) {
           });
     });
 
+router.delete('/delete/all', function (req, res, next) {
+        
+        console.log(req.params)
+    //    let user = req.param.user_id
+        db.none('DELETE FROM cartproducts WHERE user_id = $1', 20)   
+          .then((result) => {
+              console.log(result);
+              console.log("deleted all produccts"); 
+              console.log(result.rowCount);
+              res.send('success')
+          })
+          .catch(function (error) {
+              console.log('ERROR:', error); // print error;
+              res.status(400).send(error) 
+              
+          });
+});
+
 module.exports = router;
 
 // add product to cart
