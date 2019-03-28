@@ -33,9 +33,10 @@ router.post('/logout', function (req, res, next) {
 // CHECK STATUS
 router.get('/status', function (req, res, next) {
   if (req.user) {
-      res.send({ username: req.user.username, isLoggedIn: true})
+    console.log(req.user);
+      res.send({ user_id: req.user.user_id, isLoggedIn: true})
   } else {
-      res.send({ username: null, isLoggedIn: false })
+      res.send({ user_id: null, isLoggedIn: false})
   }
 });
 

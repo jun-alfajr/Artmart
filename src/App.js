@@ -17,14 +17,21 @@ import Shipping from './components/Shipping.jsx';
 import LogOut from './components/Log-out';
 import axios from 'axios'
 class App extends Component {
-  // state = {
-  //   isLoggedIn : false
-  // }
+  state = {
+    isLoggedIn : false,
+    userId: null,
+  }
 
 //   componentDidMount(){
-//   axios.get('/users/status')
-//   .then(resp => this.setState({isLoggedIn : resp.data.isLoggedIn}))
-//   .catch(err => console.log(err))
+//     axios.get('/users/status')
+//     .then(resp =>{
+//         console.log(resp.data)
+//             this.setState(() => {
+//                 return {isLoggedIn:resp.data.isLoggedIn,
+//                 userId:resp.data.user_id}
+//             })
+//         })
+//     .catch(err => console.log(err))
 // }
 
 // logout(){

@@ -9,7 +9,7 @@ var passport = require('./passport.js');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var productsRouter = require('./routes/products');
+var productsRouter = require('./routes/cartproducts');
 var cartRouter = require('./routes/cart');
 
 var app = express();
@@ -32,7 +32,7 @@ app.use(passport.session());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/products', productsRouter);
+app.use('/cartproducts', productsRouter);
 app.use('/cart', cartRouter);
 
 // catch 404 and forward to error handler

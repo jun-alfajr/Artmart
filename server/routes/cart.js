@@ -5,7 +5,7 @@ var db = require('../db');
 router.get('/incart', function (req, res, next) {
     
 
-        db.any('SELECT * FROM products WHERE incart = $1', [true])
+        db.any('SELECT * FROM cartProducts WHERE user_id = $1', [20])
             .then(function (data) {
                 // success;
                 console.log(data);

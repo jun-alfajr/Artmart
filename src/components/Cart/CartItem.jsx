@@ -1,6 +1,7 @@
 import React from 'react'
 
 export default function CartItem({item,value}) {
+    console.log(item)
     const {product_id,title,img,price,total,count} = item;
     const {increment,decrement,removeItem} = value;
 
@@ -16,8 +17,8 @@ export default function CartItem({item,value}) {
                 {title}
             </div>
             <div className="col-10 mx-auto col-lg-2">
-                <span className="d-lg-none"> price: </span>
-                <strong>${price}</strong>
+                <span className="d-lg-none"> <strong> price: </strong> </span>
+                ${price}
             </div>
             <div className="col-10 mx-auto col-lg-2 my-lg-0">
                 <div className="d-flex justify-content-center">
@@ -28,7 +29,7 @@ export default function CartItem({item,value}) {
                             -
                         </span>
 
-                    <span className="btn btn-black mx-1">{count}</span>
+                    <span className="btn btn-black mx-1">{total}</span>
 
                         <span className="btn btn-black mx-1" 
                         onClick={() =>
