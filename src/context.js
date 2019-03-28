@@ -16,7 +16,7 @@ class ProductProvider extends Component {
         cartTotal:0,
         isLoggedIn:false,
         userId: null,
-        cartItems:[]
+        // cartItems:[]
     }
 
     componentDidMount(){
@@ -26,7 +26,7 @@ class ProductProvider extends Component {
             .then(resp =>{
                 console.log(resp.data)
                 this.setState(() => {
-                    return {cartItems:resp.data}
+                    return {cart:resp.data}
                 })
             })
             .catch(err => console.log(err))

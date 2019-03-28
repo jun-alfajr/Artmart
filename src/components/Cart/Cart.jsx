@@ -18,7 +18,7 @@ export default class Cart extends Component {
       {value => {
         const {cart} = value;
         const {cartItems} = value;
-        if(cartItems.length>0){
+        if(cart.length>0){
           return(
             <React.Fragment>
               <CartColumns />
