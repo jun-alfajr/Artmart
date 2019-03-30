@@ -1,7 +1,8 @@
 import React from 'react';
 import PaypalExpressBtn from 'react-paypal-express-checkout';
+import {withRouter} from 'react-router-dom'
  
-export default class MyApp extends React.Component {
+class PayPal extends React.Component {
     render() {
         const onSuccess = (payment) => {
             // Congratulation, it came here means everything's fine!
@@ -45,3 +46,4 @@ export default class MyApp extends React.Component {
         );
     }
 }
+export default withRouter(PayPal)
