@@ -34,12 +34,42 @@ export const navOpts = [
     },{
     name: "sign-up",
     link: "/sign-up"
+    }]
+]
+
+export const navOptsLoggedIn = [
+    [{
+    name: "all",
+    link: "/products/all"
     },{
+    name: "pottery",
+    link: "/products/pottery"
+    },{
+    name: "knives",
+    link: "/products/knives"
+    },{
+    name: "paintings",
+    link: "/products/paintings"
+    },{
+    name: "wood-work",
+    link: "/products/wood-work"
+    }],
+    [{
+    name: "Da-Vito-Degal",
+    link: "/artisans/Da-Vito-Degal"
+    },{
+    name: "Lucy-Moon",
+    link: "/artisans/Lucy-Moon"
+    },{
+    name: "Vince-Van-Dro",
+    link: "/artisans/Vince-Van-Dro"
+    },{
+    name: "Ikel-Bangelo",
+    link: "/artisans/Ikel-Bangelo"
+    }],
+    [{
     name: "log-out",
-    link: "log-out"
-    },{
-    name: "settings",
-    link: "/settings"
+    link: "/log-out"
     },{
     name : "my-cart",
     link: "/my-cart"
@@ -55,62 +85,10 @@ export const slides = [
     caption: "A market and community of craftsmen, craftswomen, and seekers of unique hand-made crafts."}
 ]
 
-export const signUpData = [
-    [{
-        label:'username',
-        type: 'text',
-    },
-    {
-        label:'email',
-        type: 'email',
-    }],
-    [{
-        label:'password',
-        type: 'password',
-    },{
-        label: 'confirm Password',
-        type: 'password'
-    }],
-    [{
-        label:'address',
-        type: 'text',
-    }],
-    [{
-        label:'city',
-        type: 'text',
-    },{
-        label: 'state',
-        type: 'select'
-    },
-    {
-        label:'zipcode',
-        type: 'number',
-    }],
-    [{
-        label: 'I have read and agree to follow the terms',
-        type: 'checkbox',
-    }]
-]
-
-export const logInData = [
-    {
-        label:'Username',
-        type: 'text'
-    },
-    {
-        label:'Email',
-        type: 'email'
-    },
-    {
-        label:'Password',
-        type: 'password'
-    }
-]
 
 export const columns = [
     [{
-        name : "The goal behind the Art Mart is to provide an audience to those who like building things with their\
-        hands all while presenting them with the opportunity to tell each item's story.",
+        name : "The goal behind the Art Mart is to provide an audience to those who like building things with their hands all while presenting them with the opportunity to tell each item's story.",
         isLink: false
     }],
     [{

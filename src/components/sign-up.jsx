@@ -1,11 +1,9 @@
 import React, {Component} from 'react';
 import {Form , Button, Col, Row, Container, Alert} from 'react-bootstrap'
-import {signUpData} from '../data.js';
 import axios from 'axios';
 import Hero from './Hero';
-import {ProductConsumer} from '../context';
-
-
+import SelectUSState from 'react-select-us-states';
+import {withRouter} from 'react-router-dom';
 class SignUp extends Component{
   state={
     username: '',
@@ -16,59 +14,50 @@ class SignUp extends Component{
     city:'',
     state:'',
     zipcode: '',
-    profilePic:'',
     checkbox:false,
     errMsg:'',
-    validated:false
-    
   }
+
+  toggleCheckBox(){
+      this.setState({checkbox: !this.state.checkbox})
+  }
+  
 
   signUp(e){
     e.preventDefault()
-    const form = e.currentTarget;
-    console.log("working")
-    let { username, password,email, address, city, state, zipcode, profilePic,checkbox,validated,confirmPassword} = this.state
-
-    if (form.checkValidity() === false) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-     this.setState({ validated: true });
+    let { username, password,email, address, city, state, zipcode,checkbox,confirmPassword} = this.state
+    let usr = {...this.state}
     
     if(!checkbox){
       this.setState({errMsg:'Please check the agreement box'})
-    }else if(username < 1 || password < 1 || email < 1 || address < 1 || city < 1 || state < 1 || zipcode< 1 || profilePic < 1){
-      this.setState({errMsg:'Please fill in all spaces input fields'})
       return
-    }else if(password.length < 8){
+    }
+
+    if(username.length < 1 || password.length < 1 || email.length < 1 || address.length < 1 || city.length < 1 || state.length < 1 || zipcode.length < 1 ){
+      this.setState({errMsg:'Please complete all input fields'})
+      return
+    }
+    if(password.length < 8){
       this.setState({errMsg:'Password must be at least 8 characters'})
       return
     }
-    else if(zipcode.length != 5){
-      this.setState({errMsg:'please enter correct zipcode'})
+    if(zipcode.length !== 5){
+      this.setState({errMsg:'Invalid zipcode'})
       return
-    }else if (password != confirmPassword){
+    }
+    if (password !== confirmPassword){
       this.setState({errMsg:'Passwords do not match'})
       return
-    }else{
-      console.log("helloe")
-      axios.post('/users/register', {
-        username,
-        password,
-        email,
-        address,
-        city,
-        state,
-        zipcode,
-        profilePic
-        })
-      .then((response) => {console.log(response)})
-      .then(() => this.props.history.push('/products/all'))
-        .catch((err) => console.log(err))
+    }
+
+      axios.post('/createNewAccount', usr )
+      .then((response) => {
+        console.log(response)
+        this.props.getUser()
+        this.props.history.push('/products/all')})
       .catch((err)=> console.log(err));
     }
    
-  }
   // this was used to redirect to main page
   //  .then(()=> axios.post('/users/login',{ username, password}))
   //           .then(() => this.props.signin())
@@ -77,7 +66,6 @@ class SignUp extends Component{
   
 
     render(){
-      const { validated } = this.state;
       let {errMsg} = this.state
         return(
         <React.Fragment>
@@ -87,13 +75,12 @@ class SignUp extends Component{
                <Col>
                   {errMsg ? <Alert variant="danger">{this.state.errMsg}</Alert> : null }
                     <Form 
-                    noValidate
-                    validated={validated}
+                    className="mb-5"
                     onSubmit={(e) => this.signUp(e)}>
                         <Form.Row >
                           <Form.Group  as={Col} >
                             <Form.Label>Username</Form.Label>
-                            <Form.Control  required type="text" value={this.state.username}  onChange={(e)=>this.setState({username:e.target.value})} />
+                            <Form.Control  required type="text" name="username" value={this.state.username}  onChange={(e)=>this.setState({username:e.target.value})} />
                             <Form.Control.Feedback type="invalid">
                               Please enter a username.
                             </Form.Control.Feedback>
@@ -106,10 +93,11 @@ class SignUp extends Component{
                             </Form.Control.Feedback>
                           </Form.Group>
                         </Form.Row>
+
                         <Form.Row >
                           <Form.Group  as={Col} >
-                            <Form.Label>PassWord</Form.Label>
-                            <Form.Control required type="password" value={this.state.password}   onChange={(e)=>this.setState({password:e.target.value})}/>
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control required type="password" name="password" value={this.state.password}   onChange={(e)=>this.setState({password:e.target.value})}/>
                             <Form.Control.Feedback type="invalid">
                               Please enter a password.
                             </Form.Control.Feedback>
@@ -122,15 +110,17 @@ class SignUp extends Component{
                             </Form.Control.Feedback>
                           </Form.Group>
                         </Form.Row>
+
                         <Form.Row >
                           <Form.Group  as={Col} >
                           <Form.Label>Address</Form.Label>
                           <Form.Control required type="text" value={this.state.address}   onChange={(e)=>this.setState({address:e.target.value})} />
                           <Form.Control.Feedback type="invalid">
                               Please enter an address.
-                            </Form.Control.Feedback>
+                          </Form.Control.Feedback>
                           </Form.Group>
                         </Form.Row>
+
                         <Form.Row >
                           <Form.Group  as={Col} >
                             <Form.Label>City</Form.Label>
@@ -140,14 +130,9 @@ class SignUp extends Component{
                             </Form.Control.Feedback>
                           </Form.Group>
                           <Form.Group as={Col} controlId="formGridState">
-                            <Form.Label>State</Form.Label>
-                            <Form.Control as="select" required  onChange={(e)=>this.setState({state:e.target.value})}>
-                            <Form.Control.Feedback type="invalid">
-                                Please enter a zipcode.
-                            </Form.Control.Feedback>
-                              <option>Choose...</option>
-                              <option>GA</option>
-                            </Form.Control>
+                              <Form.Label>State</Form.Label>
+                              <br></br>
+                              <SelectUSState className="w-100" style={{height: "50px"}}  required onChange={(e) => this.setState({state:e})}/>
                           </Form.Group>
                           <Form.Group  as={Col} >
                             <Form.Label>Zipcode</Form.Label>
@@ -159,20 +144,8 @@ class SignUp extends Component{
                         </Form.Row>
                         <Form.Row >
                           <Form.Group  as={Col} >
-                          <Form.Label>Profile Picture</Form.Label>
-                          <Form.Control type="file"  onChange={(e)=>this.setState({profilePic:e.target.value})} />
-                          </Form.Group>
-                        </Form.Row>
-                        <Form.Row >
-                          <Form.Group  as={Col} >
                           <Form.Label>I have read and agree to follow the terms</Form.Label>
-                          <Form.Control type="checkbox"  required onChange={()=>{
-                            if(!this.state.checkbox){
-                              this.setState({checkbox:true})
-                            }else {
-                              this.setState({checkbox:false})
-                            }
-                          }} />
+                          <Form.Control type="checkbox" required onClick={()=> this.toggleCheckBox()} />
                           <Form.Control.Feedback type="invalid">
                               Please agree to statement
                             </Form.Control.Feedback>
@@ -190,6 +163,6 @@ class SignUp extends Component{
     }
 }
 
-export default SignUp;
+export default withRouter(SignUp);
 
 

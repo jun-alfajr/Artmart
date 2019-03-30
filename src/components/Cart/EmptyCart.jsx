@@ -9,6 +9,7 @@ export default function EmptyCart() {
             <h3>Cart is empty</h3>
             <img className="mb-5 img-fluid" 
             src="/img/empty_cart.png" 
+            alt="empty cart"
             style={{maxHeight: 400}}/>
         </Col>
       </Row>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {storeProducts, detailProduct} from './data';
+import axios from 'axios';
 
 const ProductContext = React.createContext();
 
@@ -12,7 +13,8 @@ class ProductProvider extends Component {
         modalProduct : detailProduct,
         cartSubTotal:0,
         cartTax:0,
-        cartTotal:0
+        cartTotal:0,
+        isLoggedIn:false
     }
 
     componentDidMount(){
@@ -33,6 +35,14 @@ class ProductProvider extends Component {
       
         return array;
       }
+
+    getUser = () => {
+        axios.get("/getCurrentUser")
+        .then(res => res.data === false ? 
+            this.setState({isLoggedIn : false}) : 
+            this.setState({isLoggedIn : true}))
+        .catch(err => console.log(err))
+    }
 
     setProducts = () => {
         let tempProducts = [];
@@ -121,24 +131,24 @@ class ProductProvider extends Component {
     }
 
     removeItem = (id) => {
-       let tempProducts = [...this.state.products];
-       let tempCart = [...this.state.cart];
+    let tempProducts = [...this.state.products];
+    let tempCart = [...this.state.cart];
 
-       tempCart = tempCart.filter(item => item.product_id !== id);
-       const index = tempProducts.indexOf(this.getItem(id));
-       let removedProduct = tempProducts[index];
-       removedProduct.inCart = false;
-       removedProduct.count = 0;
-       removedProduct.total = 0;
+    tempCart = tempCart.filter(item => item.product_id !== id);
+    const index = tempProducts.indexOf(this.getItem(id));
+    let removedProduct = tempProducts[index];
+    removedProduct.inCart = false;
+    removedProduct.count = 0;
+    removedProduct.total = 0;
 
-       this.setState(() => {
-           return {
-           cart:[...tempCart],
-           products:[...tempProducts]
-           }
+    this.setState(() => {
+        return {
+        cart:[...tempCart],
+        products:[...tempProducts]
+        }
         },()=> {
-           this.addTotals()
-       })
+        this.addTotals()
+    })
     }
 
     clearCart = () => {
@@ -171,6 +181,7 @@ class ProductProvider extends Component {
             ...this.state,
             handleDetail: this.handleDetail,
             addToCart: this.addToCart,
+            getUser: this.getUser,
             openModal: this.openModal,
             closeModal: this.closeModal,
             increment: this.increment,
