@@ -4,9 +4,11 @@ import {ProductConsumer} from '../context';
 import {Link} from 'react-router-dom';
 import {ButtonContainer} from './Button';
 import Hero from './Hero';
+import {withRouter} from 'react-router-dom';
 
-export default class Details extends Component {
+class Details extends Component {
   render() {
+    let {isLoggedIn} = this.props;
     return (
 <ProductConsumer>
   {(value) => {
@@ -36,11 +38,11 @@ export default class Details extends Component {
                   <ButtonContainer
                   cart
                   disabled={inCart ? true : false}
-                  onClick={()=>{
-                    value.addToCart(product_id);
-                    value.openModal(product_id);
+                  onClick={()=>{ isLoggedIn ?
+                    value.addToCartAndOpenModal(product_id) :
+                    this.props.history.push("/log-in");
                   }}>
-                    {inCart? "inCart" : "add to cart"}
+                    {inCart ? "inCart" : "add to cart"}
                   </ButtonContainer>
                 </div>
               </div>
@@ -53,3 +55,5 @@ export default class Details extends Component {
     )
   }
 }
+
+export default withRouter(Details);

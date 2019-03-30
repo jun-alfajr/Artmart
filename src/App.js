@@ -21,6 +21,10 @@ class App extends Component {
     isLoggedIn : false
   }
 
+  componentDidMount(){
+    this.getUser();
+  }
+
   getUser(){
     axios.get('/getUser')
     .then(res => res.data === false ? 
@@ -29,21 +33,22 @@ class App extends Component {
   }
 
   render() {
+    let {isLoggedIn} = this.state 
     return (
       <React.Fragment>
-        <NavBar isLoggedIn={this.state.isLoggedIn}/>
+        <NavBar isLoggedIn={isLoggedIn}/>
           <Switch>
             <Route exact path="/" component={Slides}/>
-            <Route path="/log-in" render={()=> <LogIn getUser={()=>this.getUser()}/>}/>
-            <Route path="/sign-up" render={()=> <SignUp getUser={()=>this.getUser()}/>}/>
-            <Route path="/products/:productType" component={ProductList}/>
-            <Route path="/artisans/:artisan" component={Artisan}/>
-            <Route path="/details" component={Details}/>
-            <Route path="/my-cart" component={Cart}/>
+            <Route path="/log-in" render={()=> <LogIn isLoggedIn={isLoggedIn} getUser={()=>this.getUser()}/>}/>
+            <Route path="/sign-up" render={()=> <SignUp isLoggedIn={isLoggedIn} getUser={()=>this.getUser()}/>}/>
+            <Route path="/products/:productType" render={()=> <ProductList isLoggedIn={isLoggedIn} getUser={()=>this.getUser()}/>}/>
+            <Route path="/artisans/:artisan" render={()=> <Artisan isLoggedIn={isLoggedIn} getUser={()=>this.getUser()}/>}/>
+            <Route path="/details" render={() => <Details isLoggedIn={isLoggedIn}/>}/>
+            <Route path="/my-cart" render={()=><Cart isLoggedIn={isLoggedIn}/>}/>
             <Route path="/about-us" component={About}/>
             <Route path="/terms" component={Terms}/>
             <Route path="/shipping-rates" component={Shipping}/>
-            <Route path="/log-out" render={()=> <LogOut getUser={()=>this.getUser()}/>}/>
+            <Route path="/log-out" render={()=> <LogOut isLoggedIn={isLoggedIn} getUser={()=>this.getUser()}/>}/>
             <Route component={Default}/>
           </Switch>
         <Footer/>

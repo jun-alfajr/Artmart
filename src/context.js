@@ -92,6 +92,11 @@ class ProductProvider extends Component {
         })
     }
 
+    addToCartAndOpenModal = (id) => {
+        this.addToCart(id);
+        this.openModal(id);
+    }
+
     closeModal = () => {
         this.setState(() => {
             return {modalOpen:false}
@@ -183,6 +188,7 @@ class ProductProvider extends Component {
             addToCart: this.addToCart,
             getUser: this.getUser,
             openModal: this.openModal,
+            addToCartAndOpenModal: this.addToCartAndOpenModal,
             closeModal: this.closeModal,
             increment: this.increment,
             decrement: this.decrement,

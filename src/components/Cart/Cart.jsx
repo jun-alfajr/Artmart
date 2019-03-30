@@ -5,10 +5,16 @@ import {ProductConsumer} from '../../context';
 import CartList from './CartList';
 import CartTotals from './CartTotals';
 import Hero from '../Hero';
+import {withRouter} from 'react-router-dom';
+import LogIn from '../Log-in';
 
-export default class Cart extends Component {
+class Cart extends Component {
+
   render() {
-    return (
+
+  let {isLoggedIn} = this.props
+
+  return( isLoggedIn ? 
   <section>
     <Hero pageName={"My Cart"}/>
     <div className="container">
@@ -34,7 +40,7 @@ export default class Cart extends Component {
         </div>
       </div>
     </div>
-  </section>
-    )
-  }
-}
+  </section> : <LogIn isLoggedIn={isLoggedIn}/>
+  )}}
+
+export default withRouter(Cart);

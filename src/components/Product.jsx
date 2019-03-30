@@ -3,12 +3,13 @@ import styled from 'styled-components';
 import {Link} from 'react-router-dom';
 import {ProductConsumer} from '../context';
 import PropTypes from 'prop-types';
+import {withRouter} from 'react-router-dom'
+class Product extends Component {
 
-export default class Product extends Component {
-
-  render(){
+    render(){
 
     const {product_id, title, img, price, inCart } = this.props.product
+    let {isLoggedIn} = this.props
 
     return (
         <ProductWrapper style={{maxWidth:400, minWidth: 360}} className="col-xs-9 col-sm-6 col-md-4 col-lg-3 mb-3">
@@ -28,14 +29,13 @@ export default class Product extends Component {
                         style={{height:300}}
                         className="card-img-top img-fluid img-responsive p-1"/>
                     </Link>
+                    {isLoggedIn ? 
                     <button 
                         className="cart-btn" 
                         disabled={inCart ? true : false}
-                        onClick={()=> {
-                        value.addToCart(product_id);
-                        value.openModal(product_id);
-                        }}
-                    >
+                        onClick={()=> { 
+                        value.addToCartAndOpenModal(product_id)
+                        }}>
                         {inCart ? (
                         <p className="text-capitalize mb-0" disabled>
                         {" "}
@@ -44,7 +44,7 @@ export default class Product extends Component {
                         ) : (
                         <i className="fas fa-cart-plus"/>
                         )}
-                    </button>
+                    </button> : null }
                     </div>
                 )}
 
@@ -57,9 +57,11 @@ export default class Product extends Component {
                     </div>
                 </div>
         </ProductWrapper>
-    )
-  }
+        )
+    }
 }
+
+export default withRouter(Product);
 
 Product.propTypes = {
     product: PropTypes.shape({

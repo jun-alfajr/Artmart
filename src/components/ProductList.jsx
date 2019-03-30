@@ -2,8 +2,9 @@ import React, {Component} from 'react';
 import Product from './Product';
 import Hero from './Hero';
 import {ProductConsumer} from '../context';
+import {withRouter} from 'react-router-dom';
 
-export default class ProductList extends Component{
+class ProductList extends Component{
 
     render(){
         
@@ -17,11 +18,13 @@ export default class ProductList extends Component{
                             <ProductConsumer>
                                 { value => selectedProductType === "all" ? value.products.map(product => {
                                         return <Product key={product.product_id}
-                                        product={product}/> })
+                                        product={product}
+                                        isLoggedIn={this.props.isLoggedIn}
+                                        /> })
                                         :
                                         value.products.filter(product => product.product_type === selectedProductType)
-                                        .map(product => {return <Product key={product.product_id}product={product}/>
-                                })}
+                                        .map(product => <Product key={product.product_id} product={product} isLoggedIn={this.props.isLoggedIn}/>
+                                )}
                             </ProductConsumer>
                         </div>
                     </div>
@@ -29,3 +32,5 @@ export default class ProductList extends Component{
         )
     }
 }
+
+export default withRouter(ProductList);
