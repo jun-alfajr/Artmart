@@ -17,7 +17,7 @@ class SignUp extends Component{
     checkbox:false,
     errMsg:'',
   }
-
+  
   toggleCheckBox(){
       this.setState({checkbox: !this.state.checkbox})
   }
