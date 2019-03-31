@@ -2,7 +2,6 @@ package db
 
 import (
 	"log"
-	// "fmt"
 
 	// orm "github.com/go-pg/pg/orm"
 	pg	"github.com/go-pg/pg"
@@ -57,14 +56,14 @@ func (u *User) FindUserByUsername(db *pg.DB) (*User, error){
 	return u, nil
 }
 
-// func (u *User) getAllProducts(db *pg.DB) (*[]Product, error){
-// 	defer db.Close()
+func (u *User) GetAllProducts(db *pg.DB) ([]Product, error){
+	defer db.Close()
+	var products []Product
 
-// 	err:= db.Model(u).Where("user_id=?user_id").Select(u)
-// 	if err != nil {
-// 		log.Printf("error finding products belonging to:  %v\n error: %v\n", p.User_ID, err)
-// 		return nil, err
-// 	}
-// 	fmt.Printf("returned from query : %v", *u)
-// 	return nil,nil
-// }
+	_,err:= db.Query(&products, `SELECT * FROM products  WHERE user_id = ?`, u.UserID)
+	if err != nil {
+		log.Printf("error finding products belonging to:  %v\n error: %v\n", u.UserID, err)
+		return nil, err
+	}
+	return products,nil
+}

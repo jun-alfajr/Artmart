@@ -22,6 +22,7 @@ class Cart extends Component {
         <div className="col">
     <ProductConsumer>
       {value => {
+        value.getAllProducts()
         const {cart} = value;
         if(cart.length>0){
           return(

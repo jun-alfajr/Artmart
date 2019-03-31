@@ -47,15 +47,3 @@ func (p *Product) AddToCart(db *pg.DB) error{
 	return nil
 }
 
-// func (p *Product) getProduct(db *pg.DB) (*Product, error){
-
-// 	defer db.Close()
-
-// 	err:= db.Model(p).Where("product_id=?product_id").Select(p)
-// 		if err != nil {
-// 		log.Printf("error finding product by product_id:  %v\n", err)
-// 		return nil, err
-// 	}
-// 	log.Printf("Product found : %v\n",*p)
-// 	return p, nil
-// }

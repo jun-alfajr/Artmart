@@ -98,6 +98,12 @@ class ProductProvider extends Component {
         })
     }
 
+    getAllProducts = () => {
+        axios.get("/getCart")
+        .then(res => this.setState({cart: res.data}))
+        .catch(err => console.log(err))
+    }
+
     increment = (id) => {
         console.log()
         let tempCart = [...this.state.cart];
@@ -188,6 +194,7 @@ class ProductProvider extends Component {
             increment: this.increment,
             decrement: this.decrement,
             removeItem:this.removeItem,
+            getAllProducts: this.getAllProducts,
             clearCart:this.clearCart}}>
             {this.props.children}
         </ProductContext.Provider>
