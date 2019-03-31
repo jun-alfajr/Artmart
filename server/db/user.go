@@ -2,8 +2,9 @@ package db
 
 import (
 	"log"
+	// "fmt"
 
-	orm "github.com/go-pg/pg/orm"
+	// orm "github.com/go-pg/pg/orm"
 	pg	"github.com/go-pg/pg"
 )
 
@@ -18,18 +19,18 @@ type User struct {
 	Zipcode 	string  `json:"zipcode" sql:"zip"`
 }
 
-func CreateUsersTable(db *pg.DB) error {
+// func CreateUsersTable(db *pg.DB) error {
 
-	opts := &orm.CreateTableOptions{
-		IfNotExists: true,
-	}
-	err := db.CreateTable(&User{}, opts)
-	if err != nil {
-		log.Printf("Error creating users table, Reason: %v\n", err)
-		return err
-	}
-	return nil
-}
+// 	opts := &orm.CreateTableOptions{
+// 		IfNotExists: true,
+// 	}
+// 	err := db.CreateTable(&User{}, opts)
+// 	if err != nil {
+// 		log.Printf("Error creating users table, Reason: %v\n", err)
+// 		return err
+// 	}
+// 	return nil
+// }
 
 func (u *User) CreateAccount(db *pg.DB) error{
 	
@@ -55,3 +56,15 @@ func (u *User) FindUserByUsername(db *pg.DB) (*User, error){
 	log.Printf("User found : %v\n",*u)
 	return u, nil
 }
+
+// func (u *User) getAllProducts(db *pg.DB) (*[]Product, error){
+// 	defer db.Close()
+
+// 	err:= db.Model(u).Where("user_id=?user_id").Select(u)
+// 	if err != nil {
+// 		log.Printf("error finding products belonging to:  %v\n error: %v\n", p.User_ID, err)
+// 		return nil, err
+// 	}
+// 	fmt.Printf("returned from query : %v", *u)
+// 	return nil,nil
+// }

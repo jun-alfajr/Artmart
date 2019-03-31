@@ -179,17 +179,18 @@ func login(w http.ResponseWriter, r *http.Request){
 
 func getCurrentUser(w http.ResponseWriter, r *http.Request){
 	fmt.Println("invoked get current user")
-	usr,_ := getUserFromCookie(r)
+	usr, _ := getUserFromCookie(r)
 	if usr == nil {
 		w.Write([]byte("false"))
-		return
+		return 
 	}
-	_, err := json.Marshal(usr)
-	if err != nil {
+	obj,errs := json.Marshal(usr)
+	if errs != nil {
 		http.Error(w, "something went wrong", 500)
+		return 
 	}
-	w.Write([]byte(usr.Username))
-	return
+	w.Write([]byte(obj))
+	return 
 }
 
 
@@ -199,9 +200,52 @@ func logOut(w http.ResponseWriter, r *http.Request){
 	return
 }
 
+func addToCart(w http.ResponseWriter, r *http.Request){
+
+	usr, _ := getUserFromCookie(r)
+	if usr == nil {
+		w.Write([]byte("failed to get user"))
+		return 
+	}
+
+	p := &db.Product{}
+	bod,errors := ioutil.ReadAll(r.Body)
+	if errors != nil{
+		http.Error(w,"Bad request",404)
+		return
+	}
+
+	json.Unmarshal(bod, &p)
+	_,err := json.Marshal(usr)
+	if err != nil{
+		w.Write([]byte("failed to marshal usr"))
+		http.Error(w, "Internal Server Error", 500)
+		return
+	}
+
+	p.User_ID = usr.UserID
+	pgDB := db.Connect()
+
+	errs := p.AddToCart(pgDB)
+	if errs != nil {
+		w.Write([]byte("failed to add to cart"))
+		http.Error(w, "Internal Server Error", 500)
+		return
+	}
+
+	w.Write([]byte("Successfully added "+p.Product_ID+" to cart"))
+	return
+}
+
+// func getAllProducts(w http.ResponseWriter, r *http.Request){
+
+// }
+
 
 func main() {
 
+	http.HandleFunc("/addToCart", addToCart)
+	// http.HandleFunc("/getAllProducts",getAllProducts)
 	http.HandleFunc("/getUser", getCurrentUser)
 	http.HandleFunc("/createNewAccount",createNewAccount)
 	http.HandleFunc("/login", login)

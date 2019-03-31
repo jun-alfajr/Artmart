@@ -71,18 +71,13 @@ class ProductProvider extends Component {
         let tempProducts = [...this.state.products];
         const index = tempProducts.indexOf(this.getItem(id))
         const product = tempProducts[index];
-        product.inCart = true;
-        product.count = 1;
         const price = product.price;
         product.total = price;
+        product.count = 1;
 
-        this.setState(()=>{
-            return {products: tempProducts, cart:[...this.state.cart,
-            product]};
-        },()=>{
-            this.addTotals();
-            }
-        )
+        axios.post("/addToCart",product)
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
     }
 
     openModal = (id) => {
