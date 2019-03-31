@@ -18,7 +18,8 @@ import LogOut from './components/Log-out';
 import axios from 'axios';
 class App extends Component {
   state = {
-    isLoggedIn : false
+    isLoggedIn : false,
+    cart : []
   }
 
   componentDidMount(){
@@ -27,10 +28,19 @@ class App extends Component {
 
   getUser(){
     axios.get('/getUser')
-    .then(res => res.data === false ? 
+    .then(res => res.data === false ?
     this.setState({isLoggedIn : false}) :
-    this.setState({isLoggedIn: true}))
+    this.setState({isLoggedIn: true},this.getAllProducts()))
   }
+
+  getAllProducts(){
+    console.log('get all products invoked');
+    axios.get("/getCart")
+    .then(res => {
+      console.log(res);
+      this.setState({cart: res.data})})
+    .catch(err => console.log(err))
+}
 
   render() {
     let {isLoggedIn} = this.state 
@@ -41,10 +51,10 @@ class App extends Component {
             <Route exact path="/" component={Slides}/>
             <Route path="/log-in" render={()=> <LogIn isLoggedIn={isLoggedIn} getUser={()=>this.getUser()}/>}/>
             <Route path="/sign-up" render={()=> <SignUp isLoggedIn={isLoggedIn} getUser={()=>this.getUser()}/>}/>
-            <Route path="/products/:productType" render={()=> <ProductList isLoggedIn={isLoggedIn} getUser={()=>this.getUser()}/>}/>
-            <Route path="/artisans/:artisan" render={()=> <Artisan isLoggedIn={isLoggedIn} getUser={()=>this.getUser()}/>}/>
+            <Route path="/products/:productType" render={()=> <ProductList getAllProducts={()=> this.getAllProducts()} isLoggedIn={isLoggedIn} getUser={()=>this.getUser()}/>}/>
+            <Route path="/artisans/:artisan" render={()=> <Artisan getAllProducts={()=> this.getAllProducts()} isLoggedIn={isLoggedIn} getUser={()=>this.getUser()}/>}/>
             <Route path="/details" render={() => <Details isLoggedIn={isLoggedIn}/>}/>
-            <Route path="/my-cart" render={()=><Cart isLoggedIn={isLoggedIn}/>}/>
+            <Route path="/my-cart" render={()=><Cart cart={this.state.cart} isLoggedIn={isLoggedIn}/>}/>
             <Route path="/about-us" component={About}/>
             <Route path="/terms" component={Terms}/>
             <Route path="/shipping-rates" component={Shipping}/>
@@ -52,7 +62,7 @@ class App extends Component {
             <Route component={Default}/>
           </Switch>
         <Footer/>
-        <Modal />
+        <Modal getAllProducts={()=>this.getAllProducts()}/>
       </React.Fragment>
     );
   }

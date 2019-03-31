@@ -9,7 +9,7 @@ class Product extends Component {
     render(){
 
     const {product_id, title, img, price, inCart } = this.props.product
-    let {isLoggedIn} = this.props
+    let {isLoggedIn,getAllProducts} = this.props
 
     return (
         <ProductWrapper style={{maxWidth:400, minWidth: 360}} className="col-xs-9 col-sm-6 col-md-4 col-lg-3 mb-3">
@@ -35,6 +35,7 @@ class Product extends Component {
                         disabled={inCart ? true : false}
                         onClick={()=> { 
                         value.addToCartAndOpenModal(product_id)
+                        getAllProducts()
                         }}>
                         {inCart ? (
                         <p className="text-capitalize mb-0" disabled>

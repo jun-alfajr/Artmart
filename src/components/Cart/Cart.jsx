@@ -12,7 +12,7 @@ class Cart extends Component {
 
   render() {
 
-  let {isLoggedIn} = this.props
+  let {isLoggedIn, cart} = this.props
 
   return( isLoggedIn ? 
   <section>
@@ -22,17 +22,14 @@ class Cart extends Component {
         <div className="col">
     <ProductConsumer>
       {value => {
-        value.getAllProducts()
-        const {cart} = value;
-        if(cart.length>0){
+        if(cart !== null){
           return(
             <React.Fragment>
               <CartColumns />
-              <CartList value={value}/>
-              <CartTotals value={value}/>
+              <CartList cart={cart} value={value}/>
+              <CartTotals cart={cart} value={value}/>
             </React.Fragment>
-          )
-        }
+          )}
         else{
           return <EmptyCart />
         }

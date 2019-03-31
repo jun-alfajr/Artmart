@@ -23,18 +23,15 @@ class ProductProvider extends Component {
 
     shuffle(array) {
         var currentIndex = array.length, temporaryValue, randomIndex;
-      
         while (0 !== currentIndex) {
-      
-          randomIndex = Math.floor(Math.random() * currentIndex);
-          currentIndex -= 1;
-          temporaryValue = array[currentIndex];
-          array[currentIndex] = array[randomIndex];
-          array[randomIndex] = temporaryValue;
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
         }
-      
         return array;
-      }
+    }
 
     getUser = () => {
         axios.get("/getCurrentUser")
@@ -98,11 +95,13 @@ class ProductProvider extends Component {
         })
     }
 
-    getAllProducts = () => {
-        axios.get("/getCart")
-        .then(res => this.setState({cart: res.data}))
-        .catch(err => console.log(err))
-    }
+    getAllProducts(){
+    axios.get("/getCart")
+    .then(res => {
+    console.log(res);
+    this.setState({cart: res.data})})
+    .catch(err => console.log(err))
+}
 
     increment = (id) => {
         console.log()
@@ -135,7 +134,7 @@ class ProductProvider extends Component {
                 },()=>{this.addTotals()})
         }
     }
-
+    
     removeItem = (id) => {
     let tempProducts = [...this.state.products];
     let tempCart = [...this.state.cart];

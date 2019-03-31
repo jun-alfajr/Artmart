@@ -30,10 +30,12 @@ export default class Modal extends Component {
                                         alt="product" />
                                         <h5 className="m-3 text-capitalize">{title}</h5>
                                         <h5 className="m-3">price : ${price}</h5>
-                                        <ButtonContainer onClick={() => closeModal()}>
-                                            continue
-                                        </ButtonContainer>
-                                        <Link to="/my-cart">
+                                        <Link to="/products/all" onClick={()=>this.props.getAllProducts()}>
+                                            <ButtonContainer onClick={() => closeModal()}>
+                                                continue
+                                            </ButtonContainer>
+                                        </Link>
+                                        <Link to="/my-cart" onClick={this.props.getAllProducts()}>
                                             <ButtonContainer cart onClick={() => closeModal()}>
                                                 go to cart
                                             </ButtonContainer>

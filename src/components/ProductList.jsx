@@ -20,10 +20,11 @@ class ProductList extends Component{
                                         return <Product key={product.product_id}
                                         product={product}
                                         isLoggedIn={this.props.isLoggedIn}
+                                        getAllProducts={this.props.getAllProducts}
                                         /> })
                                         :
                                         value.products.filter(product => product.product_type === selectedProductType)
-                                        .map(product => <Product key={product.product_id} product={product} isLoggedIn={this.props.isLoggedIn}/>
+                                        .map(product => <Product key={product.product_id} getAllProducts={this.props.getAllProducts} product={product} isLoggedIn={this.props.isLoggedIn}/>
                                 )}
                             </ProductConsumer>
                         </div>
