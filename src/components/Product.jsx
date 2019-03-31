@@ -8,8 +8,8 @@ class Product extends Component {
 
     render(){
 
-    const {product_id, title, img, price, inCart } = this.props.product
-    let {isLoggedIn,getAllProducts} = this.props
+    const {product_id, title, img, price } = this.props.product
+    let {isLoggedIn,getAllProducts,inCart} = this.props
 
     return (
         <ProductWrapper style={{maxWidth:400, minWidth: 360}} className="col-xs-9 col-sm-6 col-md-4 col-lg-3 mb-3">

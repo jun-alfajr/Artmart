@@ -8,11 +8,15 @@ import {withRouter} from 'react-router-dom';
 
 class Details extends Component {
   render() {
-    let {isLoggedIn} = this.props;
+    let {isLoggedIn,cart} = this.props;
     return (
 <ProductConsumer>
   {(value) => {
-    const {product_id,title,artist,img,price,info,inCart} = value.detailProduct; 
+    const {product_id,title,artist,img,price,info} = value.detailProduct;
+    let inCart = false; 
+    if(cart !== null ){
+    inCart = cart.find(cartItem => cartItem.product_id === product_id) === undefined ? false : true;
+    }
     return (
       <React.Fragment>
         <Hero pageName={title}/>
@@ -32,9 +36,9 @@ class Details extends Component {
                 {info}
               </p>
                 <div>
-                  <Link to="/products/all">
-                  <ButtonContainer>back to products</ButtonContainer>
-                  </Link>
+                  <ButtonContainer onClick={()=>this.props.history.goBack()}>
+                    back to products
+                  </ButtonContainer>
                   <ButtonContainer
                   cart
                   disabled={inCart ? true : false}

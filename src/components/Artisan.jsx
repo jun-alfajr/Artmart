@@ -7,6 +7,7 @@ class Artisan extends Component{
     
         render(){
         let artist = this.props.match.params.artisan.replace("-"," ").replace("-"," ");
+        let {cart, getAllProducts, isLoggedIn} = this.props
         return(
             <React.Fragment>
                 <Hero pageName={artist}/>
@@ -20,8 +21,9 @@ class Artisan extends Component{
                                         return <Product 
                                         key={product.product_id}
                                         product={product}
-                                        getAllProducts={this.props.getAllProducts}
-                                        isLoggedIn={this.props.isLoggedIn}/>
+                                        getAllProducts={getAllProducts}
+                                        inCart={cart === null ? false : cart.find(cartItem => cartItem.product_id === product.product_id) === undefined ? false : true}
+                                        isLoggedIn={isLoggedIn}/>
                                     })}}
                             </ProductConsumer>
                         </div>

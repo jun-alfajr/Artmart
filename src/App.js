@@ -43,7 +43,7 @@ class App extends Component {
 }
 
   render() {
-    let {isLoggedIn} = this.state 
+    let {isLoggedIn, cart} = this.state 
     return (
       <React.Fragment>
         <NavBar isLoggedIn={isLoggedIn}/>
@@ -51,10 +51,10 @@ class App extends Component {
             <Route exact path="/" component={Slides}/>
             <Route path="/log-in" render={()=> <LogIn isLoggedIn={isLoggedIn} getUser={()=>this.getUser()}/>}/>
             <Route path="/sign-up" render={()=> <SignUp isLoggedIn={isLoggedIn} getUser={()=>this.getUser()}/>}/>
-            <Route path="/products/:productType" render={()=> <ProductList getAllProducts={()=> this.getAllProducts()} isLoggedIn={isLoggedIn} getUser={()=>this.getUser()}/>}/>
-            <Route path="/artisans/:artisan" render={()=> <Artisan getAllProducts={()=> this.getAllProducts()} isLoggedIn={isLoggedIn} getUser={()=>this.getUser()}/>}/>
-            <Route path="/details" render={() => <Details isLoggedIn={isLoggedIn}/>}/>
-            <Route path="/my-cart" render={()=><Cart cart={this.state.cart} isLoggedIn={isLoggedIn}/>}/>
+            <Route path="/products/:productType" render={()=> <ProductList cart={cart} getAllProducts={()=> this.getAllProducts()} isLoggedIn={isLoggedIn} getUser={()=>this.getUser()}/>}/>
+            <Route path="/artisans/:artisan" render={()=> <Artisan cart={cart} getAllProducts={()=> this.getAllProducts()} isLoggedIn={isLoggedIn} getUser={()=>this.getUser()}/>}/>
+            <Route path="/details" render={() => <Details cart={cart} isLoggedIn={isLoggedIn}/>}/>
+            <Route path="/my-cart" render={()=><Cart cart={cart} isLoggedIn={isLoggedIn}/>}/>
             <Route path="/about-us" component={About}/>
             <Route path="/terms" component={Terms}/>
             <Route path="/shipping-rates" component={Shipping}/>
