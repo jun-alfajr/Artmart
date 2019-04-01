@@ -8,7 +8,7 @@ By Faris Huskovic and Benjamin Lin
 
 Client-side/Front-end - React.js
 
-Server-Side/Backe-end/API - Golang
+Server-Side/Back-end/API - Golang
 
 Database - Postgres
 
