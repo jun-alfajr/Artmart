@@ -204,18 +204,21 @@ func addToCart(w http.ResponseWriter, r *http.Request){
 func getCart(w http.ResponseWriter, r *http.Request){
 	usr, _ := getUserFromCookie(r)
 	if usr == nil {
+		log.Printf("error getting user from cookie")
 		w.Write([]byte("failed to get user from cookie"))
 		return 
 	}
 	pgDB := db.Connect()
 	products, err := usr.GetAllProducts(pgDB)
 	if err != nil {
+		log.Printf("error from getAllProducts")
 		w.Write([]byte("error getting products"))
 		http.Error(w,"Internal Server Error", 500)
 		return
 	}
 	obj, err := json.Marshal(products)
 	if err != nil {
+		log.Printf("error marshaling products")
 		w.Write([]byte("error marshaling products"))
 		http.Error(w,"Internal Server Error", 500)
 		return
@@ -311,8 +314,9 @@ func clearCart(w http.ResponseWriter, r *http.Request){
 	return
 }
 
-
 func main() {
+
+	http.Handle("/", http.FileServer(http.Dir("frontend/build")))
 	http.HandleFunc("/login", login)
 	http.HandleFunc("/logout", logOut)
 	http.HandleFunc("/createNewAccount",createNewAccount)
