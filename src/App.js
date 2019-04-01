@@ -19,7 +19,10 @@ import axios from 'axios';
 class App extends Component {
   state = {
     isLoggedIn : false,
-    cart : []
+    cart : [],
+    cartSubTotal: 0,
+    cartTax: 0,
+    cartTotal: 0
   }
 
   componentDidMount(){
@@ -30,17 +33,53 @@ class App extends Component {
     axios.get('/getUser')
     .then(res => res.data === false ?
     this.setState({isLoggedIn : false}) :
-    this.setState({isLoggedIn: true},this.getAllProducts()))
+    this.setState({isLoggedIn: true}, this.getAllProducts(), this.addTotals()))
+    .catch(err => console.log(err))
   }
 
-  getAllProducts(){
-    console.log('get all products invoked');
-    axios.get("/getCart")
-    .then(res => {
-      console.log(res);
-      this.setState({cart: res.data})})
+  addTotals = () => {
+
+    axios.get("/getCartTotal").
+    then(res => {
+      console.log(res)
+      let subTotal = res.data
+      let tempTax = subTotal * 0.07;
+      let tax = parseFloat(tempTax.toFixed(2));
+      let total = subTotal + tax
+
+      this.setState({cartSubTotal: subTotal,
+      cartTax: tax,
+      cartTotal: total})})
     .catch(err => console.log(err))
+
+    // console.log('add totals invoked')
+    // console.log(this.state.cart)
+    // let subTotal = 0;
+    // this.state.cart.map(item => subTotal += item.total)
+    // const tempTax = subTotal * 0.07;
+    // const tax = parseFloat(tempTax.toFixed(2));
+    // const total = subTotal + tax;
+    // console.log(`subTotal: ${subTotal}`)
+    // console.log(`tax: ${tax}`)
+    // console.log(`total: ${total}`)
+
+    // this.setState(()=>{
+    //     return{
+    //     cartSubTotal:subTotal,
+    //     cartTax:tax,
+    //     cartTotal:total
+    //     }
+    // })
 }
+
+      getAllProducts(){
+        console.log('get all products invoked');
+        axios.get("/getCart")
+        .then(res => {
+          console.log(res);
+          this.setState({cart: res.data})})
+        .catch(err => console.log(err))
+    }
 
   render() {
     let {isLoggedIn, cart} = this.state 
@@ -54,7 +93,7 @@ class App extends Component {
             <Route path="/products/:productType" render={()=> <ProductList cart={cart} getAllProducts={()=> this.getAllProducts()} isLoggedIn={isLoggedIn} getUser={()=>this.getUser()}/>}/>
             <Route path="/artisans/:artisan" render={()=> <Artisan cart={cart} getAllProducts={()=> this.getAllProducts()} isLoggedIn={isLoggedIn} getUser={()=>this.getUser()}/>}/>
             <Route path="/details" render={() => <Details cart={cart} isLoggedIn={isLoggedIn}/>}/>
-            <Route path="/my-cart" render={()=><Cart cart={cart} isLoggedIn={isLoggedIn}/>}/>
+            <Route path="/my-cart" render={()=><Cart {...this.state}/>}/>
             <Route path="/about-us" component={About}/>
             <Route path="/terms" component={Terms}/>
             <Route path="/shipping-rates" component={Shipping}/>

@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"encoding/json"
 	"time"
+	"strconv"
 
 	"github.com/gorilla/securecookie"
 	"golang.org/x/crypto/bcrypt"
@@ -262,11 +263,31 @@ func getCart(w http.ResponseWriter, r *http.Request){
 	
 }
 
+func getCartTotal(w http.ResponseWriter , r *http.Request){
+	usr, _ := getUserFromCookie(r)
+	if usr == nil {
+		w.Write([]byte("failed to get user"))
+		return 
+	}
+	pgDB := db.Connect()
+	total, err := usr.GetCartTotal(pgDB)
+	if err != nil {
+		w.Write([]byte("error getting total"))
+		http.Error(w,"Internal Server Error", 500)
+		return
+	}
+
+	w.Write([]byte(strconv.Itoa(total)))
+	fmt.Printf("total from endpoint is : %d\n", total)
+	return
+}
+
 
 func main() {
 
 	http.HandleFunc("/addToCart", addToCart)
 	http.HandleFunc("/getCart",getCart)
+	http.HandleFunc("/getCartTotal", getCartTotal)
 	http.HandleFunc("/getUser", getCurrentUser)
 	http.HandleFunc("/createNewAccount",createNewAccount)
 	http.HandleFunc("/login", login)

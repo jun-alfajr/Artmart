@@ -2,6 +2,7 @@ package db
 
 import (
 	"log"
+	"fmt"
 
 	// orm "github.com/go-pg/pg/orm"
 	pg	"github.com/go-pg/pg"
@@ -66,4 +67,17 @@ func (u *User) GetAllProducts(db *pg.DB) ([]Product, error){
 		return nil, err
 	}
 	return products,nil
+}
+
+func(u *User) GetCartTotal(db *pg.DB) (int , error){
+	defer db.Close()
+	var total int
+
+	_,err:= db.Query(&total, `SELECT SUM(total) FROM products WHERE user_id = ?;`, u.UserID)
+	if err != nil {
+		log.Printf("error getting cart total for :  %v\n error: %v\n", u.UserID, err)
+		return 0, err
+	}
+	fmt.Printf("cart total : %v\n", total)
+	return total,nil
 }
