@@ -12,10 +12,7 @@ class Cart extends Component {
 
   render() {
 
-  let {isLoggedIn, cart, cartSubTotal, cartTax, cartTotal} = this.props;
-  console.log(`cartSubTotal: ${cartSubTotal}`);
-  console.log(`cartTax: ${cartTax}`)
-  console.log(`cartTotal: ${cartTotal}`)
+  let {isLoggedIn, cart, cartSubTotal, cartTax, cartTotal , increment , decrement} = this.props;
 
   return( isLoggedIn ? 
   <section>
@@ -29,7 +26,7 @@ class Cart extends Component {
           return(
             <React.Fragment>
               <CartColumns />
-              <CartList cart={cart} value={value}/>
+              <CartList cart={cart} value={value} increment={increment} decrement={decrement}/>
               <CartTotals cartSubTotal={cartSubTotal} cartTax={cartTax} cartTotal={cartTotal} value={value}/>
             </React.Fragment>
           )}

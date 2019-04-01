@@ -39,8 +39,8 @@ class App extends Component {
 
   addTotals = () => {
 
-    axios.get("/getCartTotal").
-    then(res => {
+    axios.get("/getCartTotal")
+    .then(res => {
       console.log(res)
       let subTotal = res.data
       let tempTax = subTotal * 0.07;
@@ -52,24 +52,43 @@ class App extends Component {
       cartTotal: total})})
     .catch(err => console.log(err))
 
-    // console.log('add totals invoked')
-    // console.log(this.state.cart)
-    // let subTotal = 0;
-    // this.state.cart.map(item => subTotal += item.total)
-    // const tempTax = subTotal * 0.07;
-    // const tax = parseFloat(tempTax.toFixed(2));
-    // const total = subTotal + tax;
-    // console.log(`subTotal: ${subTotal}`)
-    // console.log(`tax: ${tax}`)
-    // console.log(`total: ${total}`)
+}
 
-    // this.setState(()=>{
-    //     return{
-    //     cartSubTotal:subTotal,
-    //     cartTax:tax,
-    //     cartTotal:total
-    //     }
-    // })
+increment = (id) => {
+  let tempCart = [...this.state.cart];
+  const selectedProduct = tempCart.find(item => item.product_id === id)
+  const index = tempCart.indexOf(selectedProduct);
+  const product = tempCart[index];
+  product.count = product.count + 1;
+  product.total = product.count * product.price;
+
+  axios.post("/updateProductCount", product)
+  .then(res => {
+  console.log(res.data);
+  this.setState({ cart:[...tempCart]},this.addTotals())})
+  .catch(err => console.log(err))
+
+}
+
+decrement = (id) => {
+  let tempCart = [...this.state.cart];
+  const selectedProduct = tempCart.find(item => item.product_id === id)
+  const index = tempCart.indexOf(selectedProduct);
+  const product = tempCart[index];
+  product.count = product.count -1;
+  product.total = product.count * product.price;
+
+  if(product.count === 0){
+    this.removeItem(id)
+    }else{
+
+  axios.post("/updateProductCount", product)
+  .then(res => {
+  console.log(res.data);
+  this.setState({ cart:[...tempCart]},this.addTotals())})
+  .catch(err => console.log(err))
+
+  }
 }
 
       getAllProducts(){
@@ -93,7 +112,7 @@ class App extends Component {
             <Route path="/products/:productType" render={()=> <ProductList cart={cart} getAllProducts={()=> this.getAllProducts()} isLoggedIn={isLoggedIn} getUser={()=>this.getUser()}/>}/>
             <Route path="/artisans/:artisan" render={()=> <Artisan cart={cart} getAllProducts={()=> this.getAllProducts()} isLoggedIn={isLoggedIn} getUser={()=>this.getUser()}/>}/>
             <Route path="/details" render={() => <Details cart={cart} isLoggedIn={isLoggedIn}/>}/>
-            <Route path="/my-cart" render={()=><Cart {...this.state}/>}/>
+            <Route path="/my-cart" render={()=><Cart {...this.state} increment={(id) => this.increment(id)} decrement={(id) => this.decrement(id)}/>}/>
             <Route path="/about-us" component={About}/>
             <Route path="/terms" component={Terms}/>
             <Route path="/shipping-rates" component={Shipping}/>

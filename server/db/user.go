@@ -81,3 +81,14 @@ func(u *User) GetCartTotal(db *pg.DB) (int , error){
 	fmt.Printf("cart total : %v\n", total)
 	return total,nil
 }
+
+func(u *User) UpdateProductCount(db *pg.DB, pID string, pCount int, pTotal int) error {
+	defer db.Close()
+
+	_, err := db.Query(nil,`UPDATE products SET count = ?,total =? WHERE product_id =? AND user_id =?;`, pCount,pTotal,pID, u.UserID)
+	if err != nil {
+		log.Printf("error updating count for :  %v\n error: %v\n", u.UserID, err)
+		return err
+	}
+	return nil
+}

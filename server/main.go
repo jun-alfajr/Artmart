@@ -282,6 +282,34 @@ func getCartTotal(w http.ResponseWriter , r *http.Request){
 	return
 }
 
+func updateProductCount(w http.ResponseWriter, r *http.Request){
+	usr, _ := getUserFromCookie(r)
+	if usr == nil {
+		w.Write([]byte("failed to get user"))
+		return 
+	}
+
+	pgDB := db.Connect()
+	p := &db.Product{}
+
+	bod,errors := ioutil.ReadAll(r.Body)
+	if errors != nil{
+		http.Error(w,"Bad request",404)
+		return
+	}
+	json.Unmarshal(bod, &p)
+	fmt.Printf("product from request : %v\n", p)
+
+	err := usr.UpdateProductCount(pgDB , p.Product_ID, p.Count ,p.Total)
+	if err != nil {
+		w.Write([]byte("failed to update product count"))
+		return 
+	}
+
+	w.Write([]byte("Succesfully updated count of "+p.Product_ID))
+	return
+}
+
 
 func main() {
 
@@ -290,6 +318,7 @@ func main() {
 	http.HandleFunc("/getCartTotal", getCartTotal)
 	http.HandleFunc("/getUser", getCurrentUser)
 	http.HandleFunc("/createNewAccount",createNewAccount)
+	http.HandleFunc("/updateProductCount", updateProductCount)
 	http.HandleFunc("/login", login)
 	http.HandleFunc("/logout", logOut)
 	http.ListenAndServe("localhost:8000",nil)

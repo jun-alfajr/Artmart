@@ -4,7 +4,7 @@ import CartItem from './CartItem';
 class CartList extends Component{
 
   render(){
-    const {cart,value} = this.props;
+    const {cart,value,increment,decrement} = this.props;
     console.log(`cart from cartlist: ${cart}`)
 
     return (
@@ -13,6 +13,8 @@ class CartList extends Component{
               return <CartItem key={i} 
               item={item}
               value={value}
+              increment={increment}
+              decrement={decrement}
               />
           })}
       </div>
