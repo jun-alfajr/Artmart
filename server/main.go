@@ -310,6 +310,52 @@ func updateProductCount(w http.ResponseWriter, r *http.Request){
 	return
 }
 
+func removeProduct(w http.ResponseWriter, r *http.Request){
+	usr, _ := getUserFromCookie(r)
+	if usr == nil {
+		w.Write([]byte("failed to get user"))
+		return 
+	}
+
+	pgDB := db.Connect()
+	p := &db.Product{}
+
+	bod,errors := ioutil.ReadAll(r.Body)
+	if errors != nil{
+		http.Error(w,"Bad request",404)
+		return
+	}
+
+	json.Unmarshal(bod, &p)
+	fmt.Printf("product from request : %v\n", p)
+	err := usr.RemoveProduct(pgDB , p.Product_ID)
+	if err != nil {
+		w.Write([]byte("failed to  remove product"))
+		return 
+	}
+
+	w.Write([]byte("Succesfully removed "+p.Product_ID))
+	return
+}
+
+func clearCart(w http.ResponseWriter, r *http.Request){
+	fmt.Println("clear cart endpoing reached")
+	usr, _ := getUserFromCookie(r)
+	if usr == nil {
+		w.Write([]byte("failed to get user"))
+		return 
+	}
+
+	pgDB := db.Connect()
+	err := usr.ClearCart(pgDB)
+	if err != nil{
+		w.Write([]byte("failed to clear cart"))
+		return 
+	}
+	w.Write([]byte("Succesfully cleared cart"))
+	return
+}
+
 
 func main() {
 
@@ -319,6 +365,8 @@ func main() {
 	http.HandleFunc("/getUser", getCurrentUser)
 	http.HandleFunc("/createNewAccount",createNewAccount)
 	http.HandleFunc("/updateProductCount", updateProductCount)
+	http.HandleFunc("/removeProduct", removeProduct)
+	http.HandleFunc("/clearCart", clearCart)
 	http.HandleFunc("/login", login)
 	http.HandleFunc("/logout", logOut)
 	http.ListenAndServe("localhost:8000",nil)

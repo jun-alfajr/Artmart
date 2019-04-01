@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components';
 import {Link} from 'react-router-dom';
-import {ProductConsumer} from '../context';
 import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom'
 class Product extends Component {
@@ -9,19 +8,16 @@ class Product extends Component {
     render(){
 
     const {product_id, title, img, price } = this.props.product
-    let {isLoggedIn,getAllProducts,inCart} = this.props
-
+    let {isLoggedIn,getAllProducts,inCart, handleDetail, addToCartAndOpenModal} = this.props
+    
     return (
         <ProductWrapper style={{maxWidth:400, minWidth: 360}} className="col-xs-9 col-sm-6 col-md-4 col-lg-3 mb-3">
             <div className="card" style={{textTransform:"capitalize"}}>
-            <ProductConsumer>
-                {(value) => (
                     <div 
                     className="img-container" 
                     onClick={() => 
-                    value.handleDetail(product_id)
-                    }
-                >
+                    handleDetail(product_id)
+                    }>
                     <Link to="/details">
                         <img 
                         src={img} 
@@ -34,7 +30,7 @@ class Product extends Component {
                         className="cart-btn" 
                         disabled={inCart ? true : false}
                         onClick={()=> { 
-                        value.addToCartAndOpenModal(product_id)
+                        addToCartAndOpenModal(product_id)
                         getAllProducts()
                         }}>
                         {inCart ? (
@@ -47,9 +43,6 @@ class Product extends Component {
                         )}
                     </button> : null }
                     </div>
-                )}
-
-                    </ProductConsumer>
                     <div className="card-footer d-flex justify-content-between">
                         <p className="align-self-center mb-0">{title}</p>
                         <h5 className="text-blue font-italic mb-0">

@@ -6,8 +6,7 @@ class CartTotals extends Component{
 
     render(){
 
-    let {history, clearCart} = this.props.value
-    let {cartSubTotal, cartTax, cartTotal } = this.props
+    let {cartSubTotal, cartTax, cartTotal, clearCart } = this.props
     console.log(`cartSubTotal: ${cartSubTotal}`);
     console.log(`cartTax: ${cartTax}`)
     console.log(`cartTotal: ${cartTotal}`)
@@ -27,7 +26,7 @@ class CartTotals extends Component{
                         <h5>subtotal : ${cartSubTotal}</h5>
                         <h5>tax : ${cartTax}</h5>
                         <h5><strong>total : ${cartTotal} </strong></h5>
-                        <Paypal total = {cartTotal} clearCart = {clearCart} history = {history}/>
+                        <Paypal total = {cartTotal} clearCart = {clearCart}/>
                     </div>
                 </div>
             </div>

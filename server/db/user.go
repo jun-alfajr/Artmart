@@ -92,3 +92,25 @@ func(u *User) UpdateProductCount(db *pg.DB, pID string, pCount int, pTotal int) 
 	}
 	return nil
 }
+
+func(u *User) RemoveProduct(db *pg.DB, pID string) error {
+	defer db.Close()
+
+	_, err := db.Query(nil,`DELETE FROM products WHERE product_id =? AND user_id =?;`,pID, u.UserID)
+	if err != nil {
+		log.Printf("error removing :  %v\n error: %v\n", pID, err)
+		return err
+	}
+	return nil
+}
+
+func(u *User) ClearCart(db *pg.DB) error {
+	defer db.Close()
+
+	_, err := db.Query(nil,`DELETE FROM products WHERE user_id =?;`,u.UserID)
+	if err != nil {
+		log.Printf("error clearing cart for  :  %v\n error: %v\n", u.Username, err)
+		return err
+	}
+	return nil
+}
