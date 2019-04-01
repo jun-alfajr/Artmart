@@ -42,6 +42,7 @@ if db == nil{
 }
 
 log.Printf("Connection to database successful")
-CreateUsersTable(db)
+// CreateUsersTable(db)
+// CreateProductsTable(db)
 return db
 }

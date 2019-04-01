@@ -1,16 +1,25 @@
-import React from 'react';
+import React, { Component } from 'react';
 import CartItem from './CartItem';
 
-export default function CartList({value}) {
-    const {cart} = value;
+class CartList extends Component{
 
-  return (
-    <div className="container-fluid">
-        {cart.map(item => {
-            return <CartItem key={item.id} 
-            item={item}
-            value={value}/>
-        })}
-    </div>
-  )
+  render(){
+    const {cart,increment,decrement,removeItem} = this.props;
+    console.log(`cart from cartlist: ${cart}`)
+
+    return (
+      <div className="container-fluid">
+          {cart.map((item ,i) => {
+              return <CartItem key={i} 
+              item={item}
+              increment={increment}
+              decrement={decrement}
+              removeItem={removeItem}
+              />
+          })}
+      </div>
+    )
+  }
 }
+
+export default CartList;

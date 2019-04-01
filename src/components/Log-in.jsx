@@ -35,6 +35,9 @@ class LogIn extends Component{
       this.setState({password: input})
     }
     render(){
+      if(this.props.isLoggedIn){
+        this.props.history.push("/")
+      }
       let {errMsg} = this.state
         return(
         <React.Fragment>

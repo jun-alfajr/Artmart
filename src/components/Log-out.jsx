@@ -8,6 +8,12 @@ import {ButtonContainer} from './Button';
 
 class LogOut extends Component{
 
+  componentDidMount(){
+    if(!this.props.isLoggedIn){
+      this.props.history.push("/")
+    }
+    return
+  }
   logOut(){
     axios.post('/logout')
     .then((response) => {
@@ -15,7 +21,6 @@ class LogOut extends Component{
     this.props.getUser()
     this.props.history.push("/")})
     .catch(err => console.log(err))
-
   }
 
 render(){

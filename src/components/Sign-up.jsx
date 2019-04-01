@@ -57,15 +57,11 @@ class SignUp extends Component{
         this.props.history.push('/products/all')})
       .catch((err)=> console.log(err));
     }
-   
-  // this was used to redirect to main page
-  //  .then(()=> axios.post('/users/login',{ username, password}))
-  //           .then(() => this.props.signin())
-  //           .catch((err) => console.log(err))
-  
-  
 
     render(){
+      if(this.props.isLoggedIn){
+        this.props.history.push("/")
+      }
       let {errMsg} = this.state
         return(
         <React.Fragment>

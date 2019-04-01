@@ -1,40 +1,37 @@
 import React, { Component } from 'react'
 import CartColumns from './CartColumns';
 import EmptyCart from "./EmptyCart";
-import {ProductConsumer} from '../../context';
 import CartList from './CartList';
 import CartTotals from './CartTotals';
 import Hero from '../Hero';
+import {withRouter} from 'react-router-dom';
+import LogIn from '../Log-in';
 
-export default class Cart extends Component {
+class Cart extends Component {
+
   render() {
-    return (
+
+  let {isLoggedIn, cart, cartSubTotal, cartTax, cartTotal , increment , decrement, removeItem, clearCart} = this.props;
+
+  return( isLoggedIn ? 
   <section>
     <Hero pageName={"My Cart"}/>
     <div className="container">
       <div className="row">
         <div className="col">
-    <ProductConsumer>
-      {value => {
-        const {cart} = value;
-        if(cart.length>0){
-          return(
+      {(cart === null ? <EmptyCart /> :
+        cart.length < 1 ? <EmptyCart /> :
+        (
             <React.Fragment>
               <CartColumns />
-              <CartList value={value}/>
-              <CartTotals value={value}/>
+              <CartList cart={cart} increment={increment} decrement={decrement} removeItem={removeItem}/>
+              <CartTotals cartSubTotal={cartSubTotal} cartTax={cartTax} cartTotal={cartTotal} clearCart={clearCart}/>
             </React.Fragment>
-          )
-        }
-        else{
-          return <EmptyCart />
-        }
-      }}
-    </ProductConsumer>
+        ))}
         </div>
       </div>
     </div>
-  </section>
-    )
-  }
-}
+  </section> : <LogIn isLoggedIn={isLoggedIn}/>
+  )}}
+
+export default withRouter(Cart);

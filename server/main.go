@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"encoding/json"
 	"time"
+	"strconv"
 
 	"github.com/gorilla/securecookie"
 	"golang.org/x/crypto/bcrypt"
@@ -179,17 +180,18 @@ func login(w http.ResponseWriter, r *http.Request){
 
 func getCurrentUser(w http.ResponseWriter, r *http.Request){
 	fmt.Println("invoked get current user")
-	usr,_ := getUserFromCookie(r)
+	usr, _ := getUserFromCookie(r)
 	if usr == nil {
 		w.Write([]byte("false"))
-		return
+		return 
 	}
-	_, err := json.Marshal(usr)
-	if err != nil {
+	obj,errs := json.Marshal(usr)
+	if errs != nil {
 		http.Error(w, "something went wrong", 500)
+		return 
 	}
-	w.Write([]byte(usr.Username))
-	return
+	w.Write([]byte(obj))
+	return 
 }
 
 
@@ -199,11 +201,172 @@ func logOut(w http.ResponseWriter, r *http.Request){
 	return
 }
 
+func addToCart(w http.ResponseWriter, r *http.Request){
+
+	usr, _ := getUserFromCookie(r)
+	if usr == nil {
+		w.Write([]byte("failed to get user"))
+		return 
+	}
+
+	p := &db.Product{}
+	bod,errors := ioutil.ReadAll(r.Body)
+	if errors != nil{
+		http.Error(w,"Bad request",404)
+		return
+	}
+
+	json.Unmarshal(bod, &p)
+	_,err := json.Marshal(usr)
+	if err != nil{
+		w.Write([]byte("failed to marshal usr"))
+		http.Error(w, "Internal Server Error", 500)
+		return
+	}
+
+	p.User_ID = usr.UserID
+	pgDB := db.Connect()
+
+	errs := p.AddToCart(pgDB)
+	if errs != nil {
+		w.Write([]byte("failed to add to cart"))
+		http.Error(w, "Internal Server Error", 500)
+		return
+	}
+
+	w.Write([]byte("Successfully added "+p.Product_ID+" to cart"))
+	return
+}
+
+func getCart(w http.ResponseWriter, r *http.Request){
+	usr, _ := getUserFromCookie(r)
+	if usr == nil {
+		w.Write([]byte("failed to get user"))
+		return 
+	}
+	pgDB := db.Connect()
+	products, err := usr.GetAllProducts(pgDB)
+	if err != nil {
+		w.Write([]byte("error getting products"))
+		http.Error(w,"Internal Server Error", 500)
+		return
+	}
+	fmt.Printf("products returned: %v\n", products);
+	obj, err := json.Marshal(products)
+	if err != nil {
+		w.Write([]byte("error marshaling products"))
+		http.Error(w,"Internal Server Error", 500)
+		return
+	}
+	w.Write(obj)
+	fmt.Printf("products : %v\n", products)
+	
+}
+
+func getCartTotal(w http.ResponseWriter , r *http.Request){
+	usr, _ := getUserFromCookie(r)
+	if usr == nil {
+		w.Write([]byte("failed to get user"))
+		return 
+	}
+	pgDB := db.Connect()
+	total, err := usr.GetCartTotal(pgDB)
+	if err != nil {
+		w.Write([]byte("error getting total"))
+		http.Error(w,"Internal Server Error", 500)
+		return
+	}
+
+	w.Write([]byte(strconv.Itoa(total)))
+	fmt.Printf("total from endpoint is : %d\n", total)
+	return
+}
+
+func updateProductCount(w http.ResponseWriter, r *http.Request){
+	usr, _ := getUserFromCookie(r)
+	if usr == nil {
+		w.Write([]byte("failed to get user"))
+		return 
+	}
+
+	pgDB := db.Connect()
+	p := &db.Product{}
+
+	bod,errors := ioutil.ReadAll(r.Body)
+	if errors != nil{
+		http.Error(w,"Bad request",404)
+		return
+	}
+	json.Unmarshal(bod, &p)
+	fmt.Printf("product from request : %v\n", p)
+
+	err := usr.UpdateProductCount(pgDB , p.Product_ID, p.Count ,p.Total)
+	if err != nil {
+		w.Write([]byte("failed to update product count"))
+		return 
+	}
+
+	w.Write([]byte("Succesfully updated count of "+p.Product_ID))
+	return
+}
+
+func removeProduct(w http.ResponseWriter, r *http.Request){
+	usr, _ := getUserFromCookie(r)
+	if usr == nil {
+		w.Write([]byte("failed to get user"))
+		return 
+	}
+
+	pgDB := db.Connect()
+	p := &db.Product{}
+
+	bod,errors := ioutil.ReadAll(r.Body)
+	if errors != nil{
+		http.Error(w,"Bad request",404)
+		return
+	}
+
+	json.Unmarshal(bod, &p)
+	fmt.Printf("product from request : %v\n", p)
+	err := usr.RemoveProduct(pgDB , p.Product_ID)
+	if err != nil {
+		w.Write([]byte("failed to  remove product"))
+		return 
+	}
+
+	w.Write([]byte("Succesfully removed "+p.Product_ID))
+	return
+}
+
+func clearCart(w http.ResponseWriter, r *http.Request){
+	fmt.Println("clear cart endpoing reached")
+	usr, _ := getUserFromCookie(r)
+	if usr == nil {
+		w.Write([]byte("failed to get user"))
+		return 
+	}
+
+	pgDB := db.Connect()
+	err := usr.ClearCart(pgDB)
+	if err != nil{
+		w.Write([]byte("failed to clear cart"))
+		return 
+	}
+	w.Write([]byte("Succesfully cleared cart"))
+	return
+}
+
 
 func main() {
 
+	http.HandleFunc("/addToCart", addToCart)
+	http.HandleFunc("/getCart",getCart)
+	http.HandleFunc("/getCartTotal", getCartTotal)
 	http.HandleFunc("/getUser", getCurrentUser)
 	http.HandleFunc("/createNewAccount",createNewAccount)
+	http.HandleFunc("/updateProductCount", updateProductCount)
+	http.HandleFunc("/removeProduct", removeProduct)
+	http.HandleFunc("/clearCart", clearCart)
 	http.HandleFunc("/login", login)
 	http.HandleFunc("/logout", logOut)
 	http.ListenAndServe("localhost:8000",nil)
