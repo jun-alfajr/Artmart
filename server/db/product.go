@@ -43,7 +43,6 @@ func (p *Product) AddToCart(db *pg.DB) error{
 		log.Printf("Error: %v\n",err)
 		return err
 	}
-	log.Printf(" %v successfully signed up.\n", p.Product_ID)
 	return nil
 }
 

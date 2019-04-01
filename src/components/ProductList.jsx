@@ -8,7 +8,7 @@ class ProductList extends Component{
     render(){
         
         let selectedProductType = this.props.match.params.productType;
-        let {getAllProducts, isLoggedIn, cart, handleDetail, addToCartAndOpenModal, products} = this.props
+        let {isLoggedIn, cart, handleDetail, addToCartAndOpenModal, products} = this.props
         console.log(products);
         return(
             <React.Fragment>
@@ -20,14 +20,12 @@ class ProductList extends Component{
                                 product={product}
                                 isLoggedIn={isLoggedIn}
                                 inCart={cart === null ? false : cart.find(cartItem => cartItem.product_id === product.product_id) === undefined ? false : true}
-                                getAllProducts={getAllProducts}
                                 handleDetail={handleDetail}
                                 addToCartAndOpenModal={addToCartAndOpenModal}
                                 /> })
                                 :
                                 products.filter(product => product.product_type === selectedProductType)
                                 .map(product => <Product key={product.product_id} 
-                                getAllProducts={getAllProducts} 
                                 product={product} 
                                 inCart={ cart === null ? false : cart.find(cartItem => cartItem.product_id === product.product_id) === undefined ? false : true}
                                 isLoggedIn={isLoggedIn}

@@ -1,3 +1,4 @@
+export const cartCols =[ "products", "name of product", "price", "quantity","remove","total"]
 export const navOpts = [
     [{
     name: "all",

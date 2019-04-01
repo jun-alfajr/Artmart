@@ -6,7 +6,7 @@ import CartTotals from './CartTotals';
 import Hero from '../Hero';
 import {withRouter} from 'react-router-dom';
 import LogIn from '../Log-in';
-
+import {Container,Row,Col} from 'react-bootstrap';
 class Cart extends Component {
 
   render() {
@@ -16,21 +16,27 @@ class Cart extends Component {
   return( isLoggedIn ? 
   <section>
     <Hero pageName={"My Cart"}/>
-    <div className="container">
-      <div className="row">
-        <div className="col">
-      {(cart === null ? <EmptyCart /> :
-        cart.length < 1 ? <EmptyCart /> :
-        (
-            <React.Fragment>
-              <CartColumns />
-              <CartList cart={cart} increment={increment} decrement={decrement} removeItem={removeItem}/>
-              <CartTotals cartSubTotal={cartSubTotal} cartTax={cartTax} cartTotal={cartTotal} clearCart={clearCart}/>
-            </React.Fragment>
-        ))}
-        </div>
-      </div>
-    </div>
+      <Container>
+        <Row>
+          <Col>
+            {(cart === null ? <EmptyCart /> :
+              cart.length < 1 ? <EmptyCart /> :
+              (
+                  <React.Fragment>
+                    <CartColumns />
+                      <CartList cart={cart} 
+                                increment={increment} 
+                                decrement={decrement} 
+                                removeItem={removeItem}/>
+                      <CartTotals cartSubTotal={cartSubTotal} 
+                                  cartTax={cartTax} 
+                                  cartTotal={cartTotal} 
+                                  clearCart={clearCart}/>
+                  </React.Fragment>
+              ))}
+            </Col>
+          </Row>
+        </Container>
   </section> : <LogIn isLoggedIn={isLoggedIn}/>
   )}}
 

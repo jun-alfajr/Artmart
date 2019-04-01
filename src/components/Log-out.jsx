@@ -14,6 +14,7 @@ class LogOut extends Component{
     }
     return
   }
+
   logOut(){
     axios.post('/logout')
     .then((response) => {
@@ -28,15 +29,15 @@ render(){
         <React.Fragment>
           <Hero className="mb-5" pageName={"Until next time...."}/>
           <Container>
-            <Row>
-                <div className="text-center">
-                <ButtonContainer className="m-5" onClick={()=> 
+          <div>
+                <ButtonContainer className="m-5 text-center" onClick={()=> 
                     this.logOut()}>
                     Log Out
                 </ButtonContainer>
-                </div>
+              </div>
+            <Row>
               <Col className="text-center">
-              <img className="img-fluid mb-5" src="/img/bye.jpg" alt="bye"/>
+                <img className="img-fluid mb-5" src="/img/bye.jpg" alt="bye"/>
               </Col>
             </Row>
           </Container>

@@ -49,14 +49,22 @@ class LogIn extends Component{
                   <Form className="mt-5 mb-5" onSubmit={(e) => this.login(e)}>
                   <Form.Group  as={Col} >
                         <Form.Label>Username</Form.Label>
-                        <Form.Control  required type="text" name="username" value={this.state.username}  onChange={(e)=>this.setState({username:e.target.value})} />
+                        <Form.Control   required 
+                                        type="text" 
+                                        name="username" 
+                                        value={this.state.username}  
+                                        onChange={(e)=>this.setState({username:e.target.value})} />
                         <Form.Control.Feedback type="invalid">
                           Please enter a username
                         </Form.Control.Feedback>
                   </Form.Group>
                   <Form.Group  as={Col} >
                         <Form.Label>Password</Form.Label>
-                        <Form.Control  required type="password" name="password" value={this.state.password}  onChange={(e)=>this.setState({password:e.target.value})} />
+                        <Form.Control   required 
+                                        type="password" 
+                                        name="password" 
+                                        value={this.state.password}  
+                                        onChange={(e)=>this.setState({password:e.target.value})} />
                         <Form.Control.Feedback type="invalid">
                           Please enter a password
                         </Form.Control.Feedback>

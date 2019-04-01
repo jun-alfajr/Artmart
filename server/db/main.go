@@ -40,8 +40,6 @@ if db == nil{
 	log.Println("Failed to connect to database.")
 	os.Exit(100)
 }
-
-log.Printf("Connection to database successful")
 // CreateUsersTable(db)
 // CreateProductsTable(db)
 return db
