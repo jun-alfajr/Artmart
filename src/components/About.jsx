@@ -14,9 +14,7 @@ export default function About() {
             Founded in 2019 by Faris Huskovic and Benjamin Lin, Artmart has come a long way from its beginnings in Atlanta Tech Village. When Faris and Ben first started out, there passion for software-developement 
             and making lots of money drove them to quit their jobs and gave them the impetus to turn hard work and inspiration into to a booming online store. We now serve customers all over the world, and are thrilled 
             to be a part of the handmade-goods wing of the retail industry.</p>
-
             <p>We hope you enjoy our products as much as we enjoy offering them to you. If you have any questions or comments, please don't hesitate to contact us.</p>
-
             <p>Sincerely,</p>
             <p>Faris and Ben</p>
           </Col>

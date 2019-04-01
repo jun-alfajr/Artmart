@@ -2,7 +2,6 @@ package db
 
 import (
 	"log"
-	"fmt"
 
 	// orm "github.com/go-pg/pg/orm"
 	pg	"github.com/go-pg/pg"
@@ -53,7 +52,7 @@ func (u *User) FindUserByUsername(db *pg.DB) (*User, error){
 		log.Printf("error finding user by username:  %v\n", err)
 		return nil, err
 	}
-	log.Printf("User found : %v\n",*u)
+	log.Printf("User found : %v\n", u.Username)
 	return u, nil
 }
 
@@ -78,7 +77,6 @@ func(u *User) GetCartTotal(db *pg.DB) (int , error){
 		log.Printf("error getting cart total for :  %v\n error: %v\n", u.UserID, err)
 		return 0, err
 	}
-	fmt.Printf("cart total : %v\n", total)
 	return total,nil
 }
 

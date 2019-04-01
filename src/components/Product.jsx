@@ -1,22 +1,23 @@
-import React, { Component } from 'react'
-import styled from 'styled-components';
+import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
-import {withRouter} from 'react-router-dom'
+import {withRouter} from 'react-router-dom';
+import ProductWrapper from './ProductWrapper';
 class Product extends Component {
 
     render(){
 
     const {product_id, title, img, price } = this.props.product
-    let {isLoggedIn,getAllProducts,inCart, handleDetail, addToCartAndOpenModal} = this.props
+    let {isLoggedIn,inCart, handleDetail, addToCartAndOpenModal} = this.props
     
     return (
-        <ProductWrapper style={{maxWidth:400, minWidth: 360}} className="col-xs-9 col-sm-6 col-md-4 col-lg-3 mb-3">
+        <ProductWrapper style={{maxWidth:400, minWidth: 360}} 
+                        className="col-xs-9 col-sm-6 col-md-4 col-lg-3 mb-3">
             <div className="card" style={{textTransform:"capitalize"}}>
                     <div 
-                    className="img-container" 
-                    onClick={() => 
-                    handleDetail(product_id)
+                        className="img-container" 
+                        onClick={() => 
+                        handleDetail(product_id)
                     }>
                     <Link to="/details">
                         <img 
@@ -31,15 +32,13 @@ class Product extends Component {
                         disabled={inCart ? true : false}
                         onClick={()=> { 
                         addToCartAndOpenModal(product_id)
-                        getAllProducts()
-                        }}>
+                    }}>
                         {inCart ? (
-                        <p className="text-capitalize mb-0" disabled>
-                        {" "}
-                        in cart
-                        </p>
-                        ) : (
-                        <i className="fas fa-cart-plus"/>
+                            <p className="text-capitalize mb-0" disabled>
+                                {" "}
+                                in cart
+                            </p>) : (
+                            <i className="fas fa-cart-plus"/>
                         )}
                     </button> : null }
                     </div>
@@ -66,55 +65,3 @@ Product.propTypes = {
         inCart:PropTypes.bool
     })
 }
-
-const ProductWrapper = styled.div`
-.card{
-    border-color:transparent;
-    transition: all 1s linear;
-    height:340px;
-}
-.card-footer{
-    background: transparent;
-    border-top: transparent;
-    transition: al 1s linear;
-}
-&:hover{
-    .card{
-        border:0.04rem solid rgba(0,0,0,0.2);
-        box-shadow:2px 2px 5px 0px rgba(0,0,0,0.2)
-    }
-    .card-footer{
-        background:rgba(247,247,247)
-    }
-}
-.img-container{
-    position:relative;
-    overflow:hidden;
-    height:320px;
-}
-.card-img-top{
-    transition: all 1s linear;
-}
-.img-container:hover .card-img-top{
-    transform(1.2);
-}
-.cart-btn{
-    position:absolute;
-    bottom: 0;
-    right: 0;
-    padding: 0.2rem 0.4rem;
-    background: #00b200;
-    border: none;
-    color: white;
-    font-size:1.4rem;
-    border-radius: 0.5rem 0 0 0;
-    transform: translate(100%,100%);
-    transition: all 1s linear;
-}
-.img-container:hover .cart-btn {
-    transform: translate(0,0);
-}
-.cart-btn:hover{
-    color: white;
-    cursor: pointer;
-}`

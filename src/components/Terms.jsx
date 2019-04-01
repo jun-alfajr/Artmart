@@ -4,7 +4,7 @@ import {Container, Row, Col} from 'react-bootstrap';
 
 
 export default function Terms() {
-  return (
+    return (
     <React.Fragment>
         <Hero pageName={"Terms"}/>
             <Container>
@@ -30,8 +30,8 @@ export default function Terms() {
                         <p>All items purchased from Artmart are made pursuant to a shipment contract. This basically means that the risk of loss and title for such items pass to you upon our delivery to the carrier.</p>
                     <h3>Product Descriptions</h3>
                         <p>Artmart and its associates attempt to be as accurate as possible. However, Artmart does not warrant that product descriptions or other content of this site is accurate, complete, reliable, current, or error-free. If a product offered by Artmart itself is not as described, your sole remedy is to return it in unused condition. </p>
-              </Col>
+                </Col>
             </Row>
         </Container>
     </React.Fragment>
-  )}
+)}

@@ -19,7 +19,7 @@ class SignUp extends Component{
   }
 
   toggleCheckBox(){
-      this.setState({checkbox: !this.state.checkbox})
+    this.setState({checkbox: !this.state.checkbox})
   }
   
 
@@ -67,8 +67,8 @@ class SignUp extends Component{
         <React.Fragment>
           <Hero pageName={"Sign-up"}/>
           <Container>
-             <Row>
-               <Col>
+            <Row>
+              <Col>
                   {errMsg ? <Alert variant="danger">{this.state.errMsg}</Alert> : null }
                     <Form 
                     className="mb-5"
@@ -76,14 +76,19 @@ class SignUp extends Component{
                         <Form.Row >
                           <Form.Group  as={Col} >
                             <Form.Label>Username</Form.Label>
-                            <Form.Control  required type="text" name="username" value={this.state.username}  onChange={(e)=>this.setState({username:e.target.value})} />
+                            <Form.Control  required type="text" 
+                                                    name="username" 
+                                                    value={this.state.username}  
+                                                    onChange={(e)=>this.setState({username:e.target.value})} />
                             <Form.Control.Feedback type="invalid">
                               Please enter a username.
                             </Form.Control.Feedback>
                           </Form.Group>
                           <Form.Group  as={Col} >
                             <Form.Label>email</Form.Label>
-                            <Form.Control required type="email" value={this.state.email}  onChange={(e)=>this.setState({email:e.target.value})} />
+                            <Form.Control required  type="email" 
+                                                    value={this.state.email}  
+                                                    onChange={(e)=>this.setState({email:e.target.value})} />
                             <Form.Control.Feedback type="invalid">
                               Please enter an email.
                             </Form.Control.Feedback>
@@ -93,14 +98,19 @@ class SignUp extends Component{
                         <Form.Row >
                           <Form.Group  as={Col} >
                             <Form.Label>Password</Form.Label>
-                            <Form.Control required type="password" name="password" value={this.state.password}   onChange={(e)=>this.setState({password:e.target.value})}/>
+                            <Form.Control required  type="password" 
+                                                    name="password" 
+                                                    value={this.state.password}   
+                                                    onChange={(e)=>this.setState({password:e.target.value})}/>
                             <Form.Control.Feedback type="invalid">
                               Please enter a password.
                             </Form.Control.Feedback>
                           </Form.Group>
                           <Form.Group  as={Col} >
                             <Form.Label>Confirm Password</Form.Label>
-                            <Form.Control  required type="password" value={this.state.confirmPassword}   onChange={(e)=>this.setState({confirmPassword:e.target.value})}/>
+                            <Form.Control   required type="password" 
+                                            value={this.state.confirmPassword}   
+                                            onChange={(e)=>this.setState({confirmPassword:e.target.value})}/>
                             <Form.Control.Feedback type="invalid">
                               Please enter a password.
                             </Form.Control.Feedback>
@@ -110,7 +120,9 @@ class SignUp extends Component{
                         <Form.Row >
                           <Form.Group  as={Col} >
                           <Form.Label>Address</Form.Label>
-                          <Form.Control required type="text" value={this.state.address}   onChange={(e)=>this.setState({address:e.target.value})} />
+                          <Form.Control required type="text" 
+                                        value={this.state.address}   
+                                        onChange={(e)=>this.setState({address:e.target.value})} />
                           <Form.Control.Feedback type="invalid">
                               Please enter an address.
                           </Form.Control.Feedback>
@@ -120,7 +132,9 @@ class SignUp extends Component{
                         <Form.Row >
                           <Form.Group  as={Col} >
                             <Form.Label>City</Form.Label>
-                            <Form.Control required type="text" value={this.state.city}   onChange={(e)=>this.setState({city:e.target.value})} />
+                            <Form.Control required  type="text" 
+                                                    value={this.state.city}   
+                                                    onChange={(e)=>this.setState({city:e.target.value})} />
                             <Form.Control.Feedback type="invalid">
                               Please enter a City.
                             </Form.Control.Feedback>
@@ -128,11 +142,15 @@ class SignUp extends Component{
                           <Form.Group as={Col} controlId="formGridState">
                               <Form.Label>State</Form.Label>
                               <br></br>
-                              <SelectUSState className="w-100" style={{height: "50px"}}  required onChange={(e) => this.setState({state:e})}/>
+                              <SelectUSState  className="w-100" 
+                                              style={{height: "50px"}}  
+                                              required onChange={(e) => this.setState({state:e})}/>
                           </Form.Group>
                           <Form.Group  as={Col} >
                             <Form.Label>Zipcode</Form.Label>
-                            <Form.Control type="number" required value={this.state.zipcode}   onChange={(e)=>this.setState({zipcode:e.target.value})} />
+                            <Form.Control type="number" 
+                                          required value={this.state.zipcode}   
+                                          onChange={(e)=>this.setState({zipcode:e.target.value})} />
                             <Form.Control.Feedback type="invalid">
                               Please enter a zipcode.
                             </Form.Control.Feedback>

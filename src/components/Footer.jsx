@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import { MDBCol, MDBContainer, MDBRow, MDBFooter } from "mdbreact";
 import {NavLink} from 'react-router-dom';
-import {columns, headings} from '../data.js';
+import {columns, headings} from '../data';
 import '../App.css';
 class Footer extends Component {
   render(){
@@ -15,7 +15,9 @@ class Footer extends Component {
               <hr></hr>
             {currentCol.map((item,j)=>
             <p key={j}>
-            {item.isLink ? <NavLink className="footer-link" to={item.link} style={{color: 'black'}}>
+            {item.isLink ? <NavLink className="footer-link" 
+                                    to={item.link} 
+                                    style={{color: 'black'}}>
             <span style={{textTransform:"capitalize"}}>{item.name.replace("-"," ")}</span>
             </NavLink> : item.name}
             </p>)}

@@ -5,7 +5,6 @@ class CartList extends Component{
 
   render(){
     const {cart,increment,decrement,removeItem} = this.props;
-    console.log(`cart from cartlist: ${cart}`)
 
     return (
       <div className="container-fluid">
