@@ -2,6 +2,8 @@
 
 Live demo [here](http://ec2-18-221-215-86.us-east-2.compute.amazonaws.com/)
 
+Video demo [here](https://youtu.be/cjd5pjdQJMs)
+
 E-commerce site to buy hand-made crafts
 
 By Faris Huskovic and Benjamin Lin
