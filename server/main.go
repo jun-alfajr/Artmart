@@ -316,7 +316,7 @@ func clearCart(w http.ResponseWriter, r *http.Request){
 
 func main() {
 
-	http.Handle("/", http.FileServer(http.Dir("frontend/build")))
+	http.Handle("/", http.FileServer(http.Dir("./frontend/build/")))
 	http.HandleFunc("/login", login)
 	http.HandleFunc("/logout", logOut)
 	http.HandleFunc("/createNewAccount",createNewAccount)
@@ -327,5 +327,5 @@ func main() {
 	http.HandleFunc("/updateProductCount", updateProductCount)
 	http.HandleFunc("/removeProduct", removeProduct)
 	http.HandleFunc("/clearCart", clearCart)
-	http.ListenAndServe("localhost:8000",nil)
+	http.ListenAndServe(":8000",nil)
 }
