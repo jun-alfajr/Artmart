@@ -4,6 +4,7 @@ import {Row} from 'react-bootstrap';
 export default function CartItem({item,removeItem,increment,decrement}) {
 
     const {product_id,title,img,price,total,count} = item;
+    console.log(`price from cartItem: ${price}`);
 
   return (
     <Row className="my-2 text-capitalize text-center">
@@ -14,10 +15,10 @@ export default function CartItem({item,removeItem,increment,decrement}) {
             alt="product" />
         </div>
             <div className="col-10 mx-auto col-lg-2">
-                <span className="d-lg-none"> product:</span>{title}
+               {title}
             </div>
             <div className="col-10 mx-auto col-lg-2">
-                <span className="d-lg-none"> <strong> price: ${price}</strong> </span>
+               <strong>cost: ${price}</strong>
             </div>
             <div className="col-10 mx-auto col-lg-2 my-lg-0">
                 <div className="d-flex justify-content-center">

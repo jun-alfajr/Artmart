@@ -12,7 +12,8 @@ class Cart extends Component {
   render() {
 
   let {isLoggedIn, cart, cartSubTotal, cartTax, cartTotal , increment , decrement, removeItem, clearCart} = this.props;
-
+    console.log(`cart from Cart: ${cart}`);
+    
   return( isLoggedIn ? 
   <section>
     <Hero pageName={"My Cart"}/>

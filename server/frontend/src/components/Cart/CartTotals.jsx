@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import Paypal from './PaypalButton';
+import Paypal from './PayPalButton';
 import {Row,Col} from 'react-bootstrap';
 
 class CartTotals extends Component{

@@ -314,9 +314,16 @@ func clearCart(w http.ResponseWriter, r *http.Request){
 	return
 }
 
-func main() {
+func catchAll(w http.ResponseWriter , r *http.Request){
+	log.Println("catchAll invoked")
+	http.ServeFile(w,r,"frontend/build/index.html")
+}
 
-	http.Handle("/", http.FileServer(http.Dir("./frontend/build/")))
+func main() {
+	
+	http.HandleFunc("/", catchAll)
+	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("frontend/build/static"))))
+	http.Handle("/img/", http.StripPrefix("/img/", http.FileServer(http.Dir("frontend/build/img"))))
 	http.HandleFunc("/login", login)
 	http.HandleFunc("/logout", logOut)
 	http.HandleFunc("/createNewAccount",createNewAccount)

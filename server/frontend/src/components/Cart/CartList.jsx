@@ -9,6 +9,7 @@ class CartList extends Component{
     return (
       <div className="container-fluid">
           {cart.map((item ,i) => {
+            console.log(`item from cartList: ${item}`)
               return <CartItem key={i} 
               item={item}
               increment={increment}
