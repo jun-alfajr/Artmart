@@ -1,6 +1,6 @@
 # Artmart
 
-Live demo [here](http://ec2-18-221-215-86.us-east-2.compute.amazonaws.com/)
+Live demo [here](http://ec2-18-191-209-102.us-east-2.compute.amazonaws.com/)
 
 Video demo [here](https://youtu.be/cjd5pjdQJMs)
 
